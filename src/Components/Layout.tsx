@@ -3,10 +3,10 @@ import Header from "./Header"
 
 function Layout() {
     return (
-        <>
+        <div className="layout">
             <Header />
             <Outlet/>
-        </>
+        </div>
     )
 }
 

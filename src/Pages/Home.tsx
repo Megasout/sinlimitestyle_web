@@ -1,10 +1,12 @@
 function Home() {
     return (
-        <div>
+        <body>
+            <div className="banner"></div>
             <center>
-                <h1>Home</h1>
+                {/* <h1>Home</h1> */}
             </center>
-        </div>
+            <div className="block"></div>
+        </body>
     )
 }
 
