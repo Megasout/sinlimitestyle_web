@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import throttle from "lodash.throttle"
 
 function Header() {
     const [isOnTop, setIsOnTop] = useState<boolean>(false)
 
     useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 0){
+        const handleScroll = throttle(() => {
+            console.log('a')
+            if (window.scrollY > 0) {
                 setIsOnTop(false)
-            }else{
+            } else {
                 setIsOnTop(true)
             }
-        }
+        }, 200)
 
         window.addEventListener('scroll', handleScroll)
         handleScroll()
@@ -22,7 +24,7 @@ function Header() {
     }, [])
 
     return (
-        <header className={isOnTop ? '' : 'black'}>
+        <div className={`header ${isOnTop ? '' : 'black'}`}>
             <nav>
                 <Link to={''} >Prendas</Link>
                 <Link to={''}>Accesorios</Link>
@@ -49,7 +51,7 @@ function Header() {
                     0
                 </p>
             </div>
-        </header>
+        </div>
     )
 }
 
