@@ -5,7 +5,7 @@ import MegaMenu from "./MegaMenu"
 
 
 function Header() {
-    const [megaMenuVisibility, setMegaMenuVisibility] = useState(true)
+    const [megaMenuVisibility, setMegaMenuVisibility] = useState(false)
     const [isOnTop, setIsOnTop] = useState<boolean>(false)
     const [menu, setMenu] = useState<number>(1)
 
