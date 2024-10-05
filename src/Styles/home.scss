@@ -1,0 +1,50 @@
+// .home{
+
+// }
+
+.home .banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home .banner .progress_bar {
+    display: flex;
+    // width: 500px;
+    height: 30px;
+    gap: 0.5rem;
+}
+
+.home .banner .progress_bar .bar {
+    position: relative;
+    width: 25px;
+    height: 10px;
+    border-radius: 10px;
+    background-color: #6b6b6b;
+    cursor: pointer;
+    transition: width 0.3s ease;
+
+    &.select {
+        width: 50px;
+    }
+}
+
+.home .banner .progress_bar .select::after {
+    content: '';
+    position: absolute;
+    width: 0px;
+    height: 10px;
+    border-radius: 10px;
+    background-color: white;
+    animation: chargeProgressBar 3s linear forwards;
+}
+
+@keyframes chargeProgressBar {
+    0%{
+        width: 0px;
+    }
+
+    100%{
+        width: 50px;
+    }
+}
