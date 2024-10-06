@@ -1,14 +1,15 @@
 import "../Styles/home.scss"
 import Banner from "../Components/Home/Banner"
+import Recommendations from "../Components/Home/Recommendations"
 
 function Home() {
+
+
+
     return (
         <div className="home">
-            <Banner/>
-            <center>
-                {/* <h1>Home</h1> */}
-            </center>
-            <div className="block"></div>
+            <Banner />
+            <Recommendations />
         </div>
     )
 }

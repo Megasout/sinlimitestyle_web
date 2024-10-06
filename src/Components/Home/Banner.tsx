@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react"
 import ProgressBar from "../ProgressBar"
 
-import banner1 from "../../assets/Images/bannerPH1.png"
-import banner2 from "../../assets/Images/bannerPH2.png"
-import banner3 from "../../assets/Images/bannerPH3.png"
-
-const banners = [banner1, banner2, banner3]
+const banners: string[] = []
 
 function Banner() {
     const [select, setSelect] = useState(0)
