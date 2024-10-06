@@ -3,13 +3,21 @@ import { Link } from "react-router-dom"
 import throttle from "lodash.throttle"
 import MegaMenu from "./MegaMenu"
 import useWindowWidth from "../Hooks/useWindowWidth"
+import NavMenu from "./NavMenu"
 
 
 function Header() {
     const [megaMenuVisibility, setMegaMenuVisibility] = useState(false)
+    const [navMenuVisibility, setNavMenuVisibility] = useState(true)
+    const [navMenuHidden, setNavMenuHidden] = useState(true)
     const [isOnTop, setIsOnTop] = useState<boolean>(false)
     const [menu, setMenu] = useState<number>(1)
     const width = useWindowWidth()
+
+    useEffect(() => {
+        setMegaMenuVisibility(false)
+        setNavMenuVisibility(false)
+    }, [width])
 
     useEffect(() => {
         const handleScroll = throttle(() => {
@@ -28,21 +36,26 @@ function Header() {
         }
     }, [])
 
+    useEffect(() => {
+        if(!navMenuVisibility){
+            setTimeout(() => setNavMenuHidden(true), 400);
+        }else{
+            setNavMenuHidden(false)
+        }
+    }, [navMenuVisibility])
+
     const handleMouseLeave = () => {
         setMegaMenuVisibility(false)
     }
 
+    const topMenuClassName = `top_menu ${isOnTop ? megaMenuVisibility || navMenuVisibility ? 'black' : '' : 'black'}`
+
     return (
         <div onMouseLeave={handleMouseLeave} className="header">
-            <div className={`top_menu ${isOnTop ? megaMenuVisibility ? 'black' : '' : 'black'}`}>
+            <div className={topMenuClassName}>
                 {width < 1280 &&
-                    <nav>
-                        <div className="menu_button">
-                            <div className="line"></div>
-                            <div className="line"></div>
-                            <div className="line"></div>
-                        </div>
-                    </nav>}
+                    <NavMenuButton setNavMenu={() => setNavMenuVisibility(!navMenuVisibility)} />
+                }
                 {width >= 1280 &&
                     <nav >
                         <NavButton
@@ -94,6 +107,7 @@ function Header() {
                 </div>
             </div>
             {megaMenuVisibility && <MegaMenu menu={menu} setMegaMenuVisibility={setMegaMenuVisibility} />}
+            <NavMenu className={`${navMenuVisibility ? 'open' : 'close'} ${navMenuHidden ? 'hidden' : ''}`}/>
         </div>
     )
 }
@@ -124,3 +138,22 @@ function NavButton(props: NavButtonType) {
             onMouseEnter={handleMouseEnter}>{name}</Link>
     )
 }
+
+type NavMenuButtonType = {
+    setNavMenu: () => void
+}
+
+function NavMenuButton(prop: NavMenuButtonType) {
+    const { setNavMenu } = prop
+
+    return (
+        <nav>
+            <div onClick={setNavMenu} className="menu_button">
+                <div className="line"></div>
+                <div className="line"></div>
+                <div className="line"></div>
+            </div>
+        </nav>
+    )
+}
+

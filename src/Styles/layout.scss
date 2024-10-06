@@ -24,7 +24,7 @@
       color: black;
     }
 
-    nav .menu_button .line{
+    nav .menu_button .line {
       background-color: black;
     }
   }
@@ -37,7 +37,7 @@
       color: black;
     }
 
-    nav .menu_button .line{
+    nav .menu_button .line {
       background-color: black;
     }
   }
@@ -48,8 +48,12 @@
   user-select: none;
   font-family: $headTitle;
   font-weight: 500;
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   cursor: pointer;
+
+  @media (min-width: 1280px) {
+    font-size: 2.4rem;
+  }
 }
 
 .top_menu nav {
@@ -95,7 +99,7 @@
   padding-left: 0.5rem;
 }
 
-.top_menu nav .menu_button .line{
+.top_menu nav .menu_button .line {
   height: 2px;
   width: 35px;
   background-color: white;
@@ -188,5 +192,39 @@
 
   100% {
     opacity: 100%;
+  }
+}
+
+.nav_menu::before {
+  content: "";
+  z-index: 1;
+  position: fixed;
+  width: 100vw;
+  height: 100%;
+  left: 500px;
+  background-color: #0000005f;
+}
+
+.nav_menu {
+  border-top: #c2c2c2 1px solid;
+  display: flex;
+  background-color: white;
+  height: 100vh;
+  width: 500px;
+  transition:
+    transform 0.4s ease,
+    opacity 0.4s ease;
+  z-index: 3;
+
+  &.open {
+    transform: translate(0, 0);
+  }
+
+  &.close {
+    transform: translate(-500px, 0);
+  }
+
+  &.hidden {
+    opacity: 0;
   }
 }
