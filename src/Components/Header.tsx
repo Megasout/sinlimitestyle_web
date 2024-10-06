@@ -2,12 +2,14 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import throttle from "lodash.throttle"
 import MegaMenu from "./MegaMenu"
+import useWindowWidth from "../Hooks/useWindowWidth"
 
 
 function Header() {
     const [megaMenuVisibility, setMegaMenuVisibility] = useState(false)
     const [isOnTop, setIsOnTop] = useState<boolean>(false)
     const [menu, setMenu] = useState<number>(1)
+    const width = useWindowWidth()
 
     useEffect(() => {
         const handleScroll = throttle(() => {
@@ -33,29 +35,39 @@ function Header() {
     return (
         <div onMouseLeave={handleMouseLeave} className="header">
             <div className={`top_menu ${isOnTop ? megaMenuVisibility ? 'black' : '' : 'black'}`}>
-                <nav >
-                    <NavButton
-                        setMegaMenuVisibility={setMegaMenuVisibility}
-                        to=""
-                        line={menu == 1}
-                        megaMenuVisibility={megaMenuVisibility}
-                        name="Prendas"
-                        setMenu={() => setMenu(1)} />
-                    <NavButton
-                        setMegaMenuVisibility={setMegaMenuVisibility}
-                        to=""
-                        line={menu == 2}
-                        megaMenuVisibility={megaMenuVisibility}
-                        name="Accesorios"
-                        setMenu={() => setMenu(2)} />
-                    <NavButton
-                        setMegaMenuVisibility={setMegaMenuVisibility}
-                        to=""
-                        line={menu == 3}
-                        megaMenuVisibility={megaMenuVisibility}
-                        name="Colecciones"
-                        setMenu={() => setMenu(3)} />
-                </nav>
+                {width < 1280 &&
+                    <nav>
+                        <div className="menu_button">
+                            <div className="line"></div>
+                            <div className="line"></div>
+                            <div className="line"></div>
+                        </div>
+                    </nav>}
+                {width >= 1280 &&
+                    <nav >
+                        <NavButton
+                            setMegaMenuVisibility={setMegaMenuVisibility}
+                            to=""
+                            line={menu == 1}
+                            megaMenuVisibility={megaMenuVisibility}
+                            name="Prendas"
+                            setMenu={() => setMenu(1)} />
+                        <NavButton
+                            setMegaMenuVisibility={setMegaMenuVisibility}
+                            to=""
+                            line={menu == 2}
+                            megaMenuVisibility={megaMenuVisibility}
+                            name="Accesorios"
+                            setMenu={() => setMenu(2)} />
+                        <NavButton
+                            setMegaMenuVisibility={setMegaMenuVisibility}
+                            to=""
+                            line={menu == 3}
+                            megaMenuVisibility={megaMenuVisibility}
+                            name="Colecciones"
+                            setMenu={() => setMenu(3)} />
+                    </nav>
+                }
                 <h1 onMouseEnter={handleMouseLeave} translate="no">Sin Límite</h1>
                 <div onMouseEnter={handleMouseLeave} className="user">
                     <span
