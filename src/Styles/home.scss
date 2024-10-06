@@ -105,12 +105,26 @@
     overflow: auto;
     align-self: center;
     padding-bottom: 1rem;
-    // padding-right: 2rem;
+    justify-content: center;
 }
 
 .home .recommendations .list .item{
-    // min-width: 200px;
-    width: 10.417vw;
-    height: 10.417vw;
+    width: 16.317vw;
+    height: 16.317vw;
     background-color: #962d42;
+
+    @media (min-width: 800px){
+        width: 13.517vw;
+        height: 13.517vw;
+    }
+
+    @media (min-width: 980px){
+        width: 11.817vw;
+        height: 11.817vw;
+    }
+
+    @media (min-width: 1440px) {
+        width: 10.417vw;
+        height: 10.417vw;
+    }
 }
