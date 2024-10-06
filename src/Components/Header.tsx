@@ -56,7 +56,7 @@ function Header() {
                         name="Colecciones"
                         setMenu={() => setMenu(3)} />
                 </nav>
-                <h1 onMouseEnter={handleMouseLeave} translate="no">Sin Limite</h1>
+                <h1 onMouseEnter={handleMouseLeave} translate="no">Sin Límite</h1>
                 <div onMouseEnter={handleMouseLeave} className="user">
                     <span
                         style={{ fontSize: "2.1rem", marginTop: "0.2rem" }}

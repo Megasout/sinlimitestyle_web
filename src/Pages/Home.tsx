@@ -1,7 +1,10 @@
+import "../Styles/home.scss"
+import Banner from "../Components/Home/Banner"
+
 function Home() {
     return (
-        <div>
-            <div className="banner"></div>
+        <div className="home">
+            <Banner/>
             <center>
                 {/* <h1>Home</h1> */}
             </center>
