@@ -17,6 +17,8 @@ function ProgressBar(props: ProgressBarType) {
     }
 
     useEffect(() => {
+        if(length == 0)
+            return
         clearInterval(intervalRef.current)
         setChange(false)
         intervalRef.current = setTimeout(() => {
