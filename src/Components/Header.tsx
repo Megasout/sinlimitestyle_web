@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import throttle from "lodash.throttle"
 import MegaMenu from "./MegaMenu"
@@ -10,6 +10,7 @@ function Header() {
     const [megaMenuVisibility, setMegaMenuVisibility] = useState(false)
     const [navMenuVisibility, setNavMenuVisibility] = useState(true)
     const [navMenuHidden, setNavMenuHidden] = useState(true)
+    const timeOutMenu = useRef<number | undefined>()
     const [isOnTop, setIsOnTop] = useState<boolean>(false)
     const [menu, setMenu] = useState<number>(1)
     const width = useWindowWidth()
@@ -37,10 +38,15 @@ function Header() {
     }, [])
 
     useEffect(() => {
-        if(!navMenuVisibility){
-            setTimeout(() => setNavMenuHidden(true), 400);
-        }else{
+        if (!navMenuVisibility) {
+            timeOutMenu.current = setTimeout(() => setNavMenuHidden(true), 400);
+        } else {
+            clearTimeout(timeOutMenu.current)
             setNavMenuHidden(false)
+        }
+
+        return () => {
+            clearTimeout(timeOutMenu.current)
         }
     }, [navMenuVisibility])
 
@@ -107,7 +113,7 @@ function Header() {
                 </div>
             </div>
             {megaMenuVisibility && <MegaMenu menu={menu} setMegaMenuVisibility={setMegaMenuVisibility} />}
-            <NavMenu className={`${navMenuVisibility ? 'open' : 'close'} ${navMenuHidden ? 'hidden' : ''}`}/>
+            <NavMenu className={`${navMenuVisibility ? 'open' : 'close'} ${navMenuHidden ? 'hidden' : ''}`} />
         </div>
     )
 }
