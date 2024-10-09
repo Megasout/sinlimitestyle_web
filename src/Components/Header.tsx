@@ -8,10 +8,10 @@ import NavMenu from "./NavMenu"
 
 function Header() {
     const [megaMenuVisibility, setMegaMenuVisibility] = useState(false)
-    const [navMenuVisibility, setNavMenuVisibility] = useState(true)
+    const [navMenuVisibility, setNavMenuVisibility] = useState(false)
     const [navMenuHidden, setNavMenuHidden] = useState(true)
     const timeOutMenu = useRef<number | undefined>()
-    const [isOnTop, setIsOnTop] = useState<boolean>(false)
+    const [isOnTop, setIsOnTop] = useState<boolean>(true)
     const [menu, setMenu] = useState<number>(1)
     const width = useWindowWidth()
 
@@ -57,7 +57,7 @@ function Header() {
     const topMenuClassName = `top_menu ${isOnTop ? megaMenuVisibility || navMenuVisibility ? 'black' : '' : 'black'}`
 
     return (
-        <div onMouseLeave={handleMouseLeave} className="header">
+        <div style={{ height: !navMenuHidden ? '100vh' : 'auto' }} onMouseLeave={handleMouseLeave} className="header">
             <div className={topMenuClassName}>
                 {width < 1280 &&
                     <NavMenuButton setNavMenu={() => setNavMenuVisibility(!navMenuVisibility)} />
@@ -89,31 +89,40 @@ function Header() {
                 }
                 <h1 onMouseEnter={handleMouseLeave} translate="no">Sin Límite</h1>
                 <div onMouseEnter={handleMouseLeave} className="user">
-                    <span
-                        style={{ fontSize: "2.1rem", marginTop: "0.2rem" }}
-                        translate="no"
-                        className="material-symbols-outlined">
-                        search
-                    </span>
-                    <span
-                        style={{ fontSize: "2rem" }}
-                        translate="no"
-                        className="material-symbols-outlined">
-                        account_circle
-                    </span>
-                    <p>
+                    <div className="button">
                         <span
-                            style={{ fontSize: "1.9rem" }}
+                            style={{ fontSize: width < 500 ? "1.9rem" : "2.1rem", marginTop: "0.2rem" }}
                             translate="no"
                             className="material-symbols-outlined">
-                            shopping_bag
+                            search
                         </span>
-                        0
-                    </p>
+                    </div>
+                    {width >= 660 &&
+                        <div className="button">
+                            <span
+                                style={{ fontSize: "2rem" }}
+                                translate="no"
+                                className="material-symbols-outlined">
+                                account_circle
+                            </span>
+                        </div>}
+                    <div className="button">
+                        <p>
+                            <span
+                                style={{ fontSize: width < 500 ? "1.7rem" : "1.9rem" }}
+                                translate="no"
+                                className="material-symbols-outlined">
+                                shopping_bag
+                            </span>
+                            0
+                        </p>
+                    </div>
                 </div>
             </div>
             {megaMenuVisibility && <MegaMenu menu={menu} setMegaMenuVisibility={setMegaMenuVisibility} />}
-            <NavMenu className={`${navMenuVisibility ? 'open' : 'close'} ${navMenuHidden ? 'hidden' : ''}`} />
+            <NavMenu
+                className={`${navMenuVisibility ? 'open' : 'close'} ${navMenuHidden ? 'hidden' : ''}`}
+                setNavMenuVisibility={setNavMenuVisibility} />
         </div>
     )
 }
