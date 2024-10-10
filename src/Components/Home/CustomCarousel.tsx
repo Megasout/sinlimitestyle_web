@@ -1,20 +1,21 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
-
-type RecommendationsType = {
-    width: number
+type CustomCarouselType = {
+    width: number,
+    title: string
 }
 
-function Recommendations(props: RecommendationsType) {
-    const { width } = props
+function CustomCarousel(props: CustomCarouselType) {
+    const { width, title } = props
     const [slideToSlide, setSlideToSlide] = useState<number>(1)
 
     const responsive = {
         a: {
             breakpoint: { max: 4000, min: 1440 },
-            items: 8
+            items: 8,
+            partialVisibilityGutter: 5
         },
         b: {
             breakpoint: { max: 1440, min: 1200 },
@@ -66,8 +67,8 @@ function Recommendations(props: RecommendationsType) {
     }, [width])
 
     return (
-        <div className="recommendations">
-            <h1 className="title">Nuestras recomendaciones</h1>
+        <div className="recommendations custom">
+            <h1 className="title">{title}</h1>
             <Carousel
                 className="carousel"
                 swipeable={false}
@@ -75,11 +76,11 @@ function Recommendations(props: RecommendationsType) {
                 responsive={responsive}
                 slidesToSlide={slideToSlide}
                 partialVisbile>
-                {Array.from({ length: 8 }).map((_, index) =>
+                {Array.from({ length: 15 }).map((_, index) =>
                     <div key={index} className={`item ${index == 7 ? 'final' : ''}`}></div>)}
             </Carousel>
         </div>
     )
 }
 
-export default Recommendations
+export default CustomCarousel
