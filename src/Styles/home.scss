@@ -3,7 +3,7 @@
 
 // }
 
-.home .banner::before{
+.home .banner::before {
     content: "";
     position: absolute;
     top: 0;
@@ -11,7 +11,7 @@
     width: 100%;
     height: 100%;
     background: #00000055;
-    z-index: 1; 
+    z-index: 1;
 }
 
 .home .banner {
@@ -30,14 +30,14 @@
     transition: background-image 0.3s ease;
     background-position: center;
 
-    h1{
+    h1 {
         font-family: $TittleFont;
         font-weight: 500;
         margin: 0;
         z-index: 2;
     }
 
-    h2{
+    h2 {
         font-weight: 400;
         z-index: 2;
     }
@@ -75,50 +75,64 @@
 }
 
 @keyframes chargeProgressBar {
-    0%{
+    0% {
         width: 0px;
     }
 
-    100%{
+    100% {
         width: 50px;
     }
 }
 
-.home .recommendations{
+.home .recommendations {
     display: flex;
     flex-direction: column;
     margin-top: 1.5rem;
     background-color: white;
 }
 
-.home .recommendations .title{
+.home .recommendations .title {
     margin: 0;
     padding: 2rem;
-}
+    font-weight: 500;
+    font-size: 1.4rem;
 
-.home .recommendations .list{
-    display: flex;
-    width: 90vw;
-    gap: 1rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
-    overflow: auto;
-    align-self: center;
-    padding-bottom: 1rem;
-    justify-content: center;
-}
-
-.home .recommendations .list .item{
-    width: 16.317vw;
-    height: 16.317vw;
-    background-color: #962d42;
-
-    @media (min-width: 800px){
-        width: 13.517vw;
-        height: 13.517vw;
+    @media (min-width: 500px) {
+        font-size: 1.8rem;
     }
 
-    @media (min-width: 980px){
+    @media (min-width: 1280px) {
+        font-size: 2rem;
+    }
+}
+
+.home .recommendations .item {
+    width: 42.317vw;
+    height: 42.317vw;
+    background-color: #962d42;
+    margin-left: 1rem;
+
+    @media (min-width: 600px) {
+        width: 28.317vw;
+        height: 28.317vw;
+    }
+
+    @media (min-width: 750px) {
+        width: 21.2vw;
+        height: 21.2vw;
+    }
+
+    @media (min-width: 880px) {
+        width: 16.817vw;
+        height: 16.817vw;
+    }
+
+    @media (min-width: 1030px) {
+        width: 13.817vw;
+        height: 13.817vw;
+    }
+
+    @media (min-width: 1200px) {
         width: 11.817vw;
         height: 11.817vw;
     }
