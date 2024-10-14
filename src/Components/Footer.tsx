@@ -11,22 +11,28 @@ function Footer() {
                 <div className="block large">
                     <h1>Suscríbete para recibir ofertas y noticias</h1>
                     <form>
-                        <input type="email" placeholder="Direccion de correo electronico" />
+                        <input type="email" placeholder="Email" />
                         <input type="submit" value={'Suscribirse'} />
                     </form>
                     <p>Al suscribirse, usted confirma que ha leído y comprendido nuestra
                         {' '}<span>Declaracion de privacidad</span>{' '}
                         y que deseas recibir nuestro correo informativo.</p>
+                    <div className="social">
+                        <a href=""><i className="fa-brands fa-facebook"></i></a>
+                        <a href=""><i className="fa-brands fa-square-instagram"></i></a>
+                        <a href=""><i className="fa-brands fa-whatsapp"></i></a>
+                    </div>
                 </div>
-                {width >= 1480 &&
+
+                {width >= 1280 &&
                     <FullFooter />}
                 {width < 970 &&
                     <div className="line"></div>}
-                {width < 1480 &&
+                {width < 1280 &&
                     <Buttons />}
             </div>
             <div className="info">
-                <h2>©Sin Limite 2024</h2>
+                <h2>©Sin Límite 2024</h2>
             </div>
         </div>
 
@@ -40,28 +46,23 @@ function FullFooter() {
         <>
             <div className="line"></div>
             <div className="block">
-                <h1>Redes sociales</h1>
-                <a href="http://www.facebook.com">Facebook</a>
-                <a href="http://www.facebook.com">Instagram</a>
-                <a href="http://www.facebook.com">WhatsApp</a>
-            </div>
-            <div className="block">
                 <h1>Servicios</h1>
                 <Link to={''}>Servicio 1</Link>
                 <Link to={''}>Servicio 2</Link>
                 <Link to={''}>Servicio 3</Link>
             </div>
             <div className="block">
-                <h1>Sobre nosotros</h1>
-                <Link to={''}>Llámenos al <span style={{ textWrap: "nowrap" }}>+598 98 912 284</span></Link>
-                <Link to={''}>Contáctanos por WhatsApp</Link>
-                <Link to={''}>correo@correo.com</Link>
+                <h1>Sin Límite</h1>
+                <Link to={''}>Sobre nosotros</Link>
                 <Link to={''}>Preguntas frecuentes</Link>
-            </div>
-            <div className="block">
-                <h1>Legal</h1>
                 <Link to={''}>Términos y condiciones de uso</Link>
                 <Link to={''}>Declaración de privacidad</Link>
+            </div>
+            <div className="block">
+                <h1>Contacto</h1>
+                <IconButton to="" icon="fa-brands fa-whatsapp" text="WhatsApp" />
+                <IconButton to="" icon="fa-regular fa-envelope" text="+598 98 912 284" />
+                <IconButton to="" icon="fa-solid fa-phone" text="correo@correo.com" />
             </div>
         </>
     )
@@ -71,36 +72,29 @@ function Buttons() {
     return (
         <div className="buttons">
             <CustomButton
-                title="Redes sociales"
-                height={70}
-                children={[
-                    <a href="http://www.facebook.com">Facebook</a>,
-                    <a href="http://www.facebook.com">Instagram</a>,
-                    <a href="http://www.facebook.com">WhatsApp</a>
-                ]} />
-            <CustomButton
                 title="Servicios"
-                height={70}
+                height={71}
                 children={[
                     <Link to={''}>Servicio 1</Link>,
                     <Link to={''}>Servicio 2</Link>,
                     <Link to={''}>Servicio 3</Link>
                 ]} />
             <CustomButton
-                title="Sobre nosotros"
-                height={95}
+                title="Sin Límite"
+                height={97}
                 children={[
-                    <Link to={''}>Llámenos al <span style={{ textWrap: "nowrap" }}>+598 98 912 284</span></Link>,
-                    <Link to={''}>Contáctanos por WhatsApp</Link>,
-                    <Link to={''}>correo@correo.com</Link>,
-                    <Link to={''}>Preguntas frecuentes</Link>
-                ]} />
-            <CustomButton
-                title="Legal"
-                height={46}
-                children={[
+                    <Link to={''}>Sobre nosotros</Link>,
+                    <Link to={''}>Preguntas frecuentes</Link>,
                     <Link to={''}>Términos y condiciones de uso</Link>,
                     <Link to={''}>Declaración de privacidad</Link>
+                ]} />
+            <CustomButton
+                title="Contacto"
+                height={75}
+                children={[
+                    <IconButton to="" icon="fa-brands fa-whatsapp" text="WhatsApp" />,
+                    <IconButton to="" icon="fa-regular fa-envelope" text="+598 98 912 284" />,
+                    <IconButton to="" icon="fa-solid fa-phone" text="correo@correo.com" />
                 ]} />
         </div>
     )
@@ -136,5 +130,22 @@ function CustomButton(props: CustomButtonType) {
                 {children}
             </div>
         </div>
+    )
+}
+
+type IconButtonType = {
+    icon: string,
+    text: string,
+    to: string
+}
+
+function IconButton(props: IconButtonType) {
+    const { icon, text, to } = props
+
+    return (
+        <Link to={to}>
+            <i style={{ fontSize: '1rem' }} className={icon}></i>
+            {' ' + text}
+        </Link >
     )
 }
