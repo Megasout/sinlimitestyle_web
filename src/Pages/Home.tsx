@@ -17,7 +17,7 @@ function Home() {
             <PrendasTipo />
             <Carousel title="Novedades" width={width}/>
             <Carousel title="Lo más popular" width={width}/>
-            <Colecciones/>
+            <Colecciones width={width}/>
         </div>
     )
 }

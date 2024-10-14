@@ -13,11 +13,11 @@ function Recommendations(props: RecommendationsType) {
 
     const responsive = {
         a: {
-            breakpoint: { max: 4000, min: 1440 },
+            breakpoint: { max: 4000, min: 1439 },
             items: 8
         },
         b: {
-            breakpoint: { max: 1440, min: 1200 },
+            breakpoint: { max: 1439, min: 1200 },
             items: 7,
             partialVisibilityGutter: 6
         },
@@ -67,7 +67,7 @@ function Recommendations(props: RecommendationsType) {
 
     return (
         <div className="recommendations">
-            <h1 className="title">Nuestras recomendaciones</h1>
+            <h1 className="title">{width < 530 ? 'Recomendaciones' : 'Nuestras recomendaciones'}</h1>
             <Carousel
                 className="carousel"
                 swipeable={false}
