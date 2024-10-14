@@ -1,9 +1,11 @@
 @import "./globalvars.scss";
-// .home{
 
-// }
+.home {
+    display: flex;
+    flex-direction: column;
+}
 
-.home .banner::before{
+.home .banner::before {
     content: "";
     position: absolute;
     top: 0;
@@ -11,7 +13,7 @@
     width: 100%;
     height: 100%;
     background: #00000055;
-    z-index: 1; 
+    z-index: 1;
 }
 
 .home .banner {
@@ -23,21 +25,21 @@
     background-size: cover;
     background-image: var(--image-sourse);
     width: 100%;
-    height: 50vh;
+    height: 65vh;
     min-height: 500px;
     flex-direction: column;
     color: white;
     transition: background-image 0.3s ease;
     background-position: center;
 
-    h1{
+    h1 {
         font-family: $TittleFont;
         font-weight: 500;
         margin: 0;
         z-index: 2;
     }
 
-    h2{
+    h2 {
         font-weight: 400;
         z-index: 2;
     }
@@ -75,56 +77,199 @@
 }
 
 @keyframes chargeProgressBar {
-    0%{
+    0% {
         width: 0px;
     }
 
-    100%{
+    100% {
         width: 50px;
     }
 }
 
-.home .recommendations{
+.home .recommendations {
     display: flex;
     flex-direction: column;
     margin-top: 1.5rem;
-    background-color: white;
+    padding-bottom: 2rem;
+
+    &.custom {
+        margin-top: 0.5rem;
+        padding-bottom: 1rem;
+    }
 }
 
-.home .recommendations .title{
+.home .recommendations .carousel {
+    @media (min-width: 1440px) {
+        width: 90vw;
+        align-self: center;
+    }
+}
+
+.home .recommendations .title {
+    position: relative;
     margin: 0;
-    padding: 2rem;
-}
+    padding: 1rem;
+    font-weight: 500;
+    font-size: 1.4rem;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
 
-.home .recommendations .list{
-    display: flex;
-    width: 90vw;
-    gap: 1rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
-    overflow: auto;
-    align-self: center;
-    padding-bottom: 1rem;
-    justify-content: center;
-}
-
-.home .recommendations .list .item{
-    width: 16.317vw;
-    height: 16.317vw;
-    background-color: #962d42;
-
-    @media (min-width: 800px){
-        width: 13.517vw;
-        height: 13.517vw;
+    @media (min-width: 530px) {
+        font-size: 1.8rem;
+        padding-left: 2rem;
     }
 
-    @media (min-width: 980px){
+    @media (min-width: 1280px) {
+        font-size: 2rem;
+    }
+
+    @media (min-width: 1440px) {
+        padding-left: 4.5rem;
+    }
+
+    &:hover {
+        color: white;
+        background-color: #6c6cc5;
+        cursor: pointer;
+    }
+}
+
+.home .recommendations .title:hover::after{
+    content: "Ver todo";
+    font-size: 1.2rem;
+    position: absolute;
+    right: -5rem;
+    animation: titleEntry 0.3s forwards;
+}
+
+@keyframes titleEntry {
+    0%{
+        right: -5rem;
+    }
+    100%{
+        right: 1rem;
+    }
+}
+
+.home .recommendations .item {
+    width: 42.317vw;
+    height: 42.317vw;
+    background-color: #c5ccd7;
+    border-radius: 50px;
+    margin-left: 1rem;
+    cursor: pointer;
+
+    @media (min-width: 601px) {
+        width: 28.317vw;
+        height: 28.317vw;
+    }
+
+    @media (min-width: 751px) {
+        width: 21.2vw;
+        height: 21.2vw;
+    }
+
+    @media (min-width: 881px) {
+        width: 16.817vw;
+        height: 16.817vw;
+    }
+
+    @media (min-width: 1031px) {
+        width: 13.817vw;
+        height: 13.817vw;
+    }
+
+    @media (min-width: 1201px) {
         width: 11.817vw;
         height: 11.817vw;
     }
 
     @media (min-width: 1440px) {
-        width: 10.417vw;
-        height: 10.417vw;
+        width: 9.417vw;
+        height: 9.417vw;
+        margin-left: 0;
+    }
+}
+
+.home .prendas_tipo {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-direction: column;
+    align-items: center;
+
+    @media (min-width: 970px) {
+        align-items: start;
+        flex-direction: row;
+    }
+}
+
+.home .prendas_tipo .block {
+    display: flex;
+    flex-direction: column;
+    width: 90vw;
+    height: 48vw;
+    background-color: #c5ccd7;
+    cursor: pointer;
+
+    @media (min-width: 970px) {
+        width: 44vw;
+        height: 48vw;
+    }
+}
+
+.home .prendas_tipo .block h1,
+.home .colecciones h1 {
+    margin: 0;
+    margin-top: 2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    font-weight: 500;
+    font-size: 1.4rem;
+
+    @media (min-width: 680px) {
+        font-size: 1.8rem;
+    }
+
+    @media (min-width: 1280px) {
+        font-size: 2rem;
+    }
+}
+
+.home .prendas_tipo .block h2,
+.home .colecciones h2 {
+    margin: 0;
+    margin-top: 1rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    font-weight: 400;
+    font-size: 1.2rem;
+
+    @media (min-width: 680px) {
+        font-size: 1.4rem;
+    }
+
+    @media (min-width: 1280px) {
+        font-size: 1.6rem;
+    }
+}
+
+.home .colecciones {
+    display: flex;
+    flex-direction: column;
+    width: 90vw;
+    height: 48vw;
+    background-color: #c5ccd7;
+    align-self: center;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    cursor: pointer;
+
+    @media (min-width: 970px) {
+        height: 30vw;
     }
 }
