@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom"
+
 type NavMenuType = {
     className: string
     setNavMenuVisibility: (value: boolean) => void
@@ -15,17 +17,17 @@ function NavMenu(props: NavMenuType) {
                 close
             </span>
 
-            <NavButton icon="home" text="Pagina Principal"/>
+            <NavButton to="/" icon="home" text="Pagina Principal"/>
             <div className="line"></div>
-            <NavButton icon="Apparel" text="Prendas"/>
-            <NavButton icon="category" text="Accesorios"/>
-            <NavButton icon="lists" text="Colecciones"/>
-            <NavButton icon="Sell" text="Ofertas"/>
+            <NavButton to="./tienda?filtro=prendas" icon="Apparel" text="Prendas"/>
+            <NavButton to="./tienda?filtro=accesorios" icon="category" text="Accesorios"/>
+            <NavButton to="" icon="lists" text="Colecciones"/>
+            <NavButton to="" icon="Sell" text="Ofertas"/>
             <div className="line"></div>
             <div style={{height: "100%"}}></div>
             <div className="line"></div>
-            <NavButton icon="account_circle" text="Usuario"/>
-            <NavButton icon="info" text="Contacto"/>
+            <NavButton to="" icon="account_circle" text="Usuario"/>
+            <NavButton to="" icon="info" text="Contacto"/>
             <div style={{marginTop: "5rem"}}></div>
         </div>
     )
@@ -35,14 +37,20 @@ export default NavMenu
 
 type NavButtonType = {
     icon: string,
-    text: string
+    text: string,
+    to: string
 }
 
 function NavButton(props: NavButtonType) {
-    const {icon, text} = props
+    const {icon, text, to} = props
+    const navigation = useNavigate()
+
+    const handleOnClick = () => {
+        navigation(to)
+    }
 
     return (
-        <div className="button">
+        <div className="button" onClick={handleOnClick}>
             <span
                 style={{ userSelect: "none" }}
                 translate="no"

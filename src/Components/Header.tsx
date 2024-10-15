@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import throttle from "lodash.throttle"
 import MegaMenu from "./MegaMenu"
 import useWindowWidth from "../Hooks/useWindowWidth"
@@ -14,6 +14,7 @@ function Header() {
     const [isOnTop, setIsOnTop] = useState<boolean>(true)
     const [menu, setMenu] = useState<number>(1)
     const width = useWindowWidth()
+    const navigation = useNavigate()
 
     useEffect(() => {
         setMegaMenuVisibility(false)
@@ -66,14 +67,14 @@ function Header() {
                     <nav >
                         <NavButton
                             setMegaMenuVisibility={setMegaMenuVisibility}
-                            to=""
+                            to="./tienda?filtro=prendas"
                             line={menu == 1}
                             megaMenuVisibility={megaMenuVisibility}
                             name="Prendas"
                             setMenu={() => setMenu(1)} />
                         <NavButton
                             setMegaMenuVisibility={setMegaMenuVisibility}
-                            to=""
+                            to="./tienda?filtro=accesorios"
                             line={menu == 2}
                             megaMenuVisibility={megaMenuVisibility}
                             name="Accesorios"
@@ -87,7 +88,7 @@ function Header() {
                             setMenu={() => setMenu(3)} />
                     </nav>
                 }
-                <h1 onMouseEnter={handleMouseLeave} translate="no">Sin Límite</h1>
+                <h1 onClick={() => navigation('/')} onMouseEnter={handleMouseLeave} translate="no">Sin Límite</h1>
                 <div onMouseEnter={handleMouseLeave} className="user">
                     <div className="button">
                         <span

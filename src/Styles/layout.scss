@@ -182,6 +182,18 @@
   }
 }
 
+.mega_menu .categories .block{
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem;
+  gap: 0.5rem;
+}
+
+.mega_menu .categories .block a{
+  text-decoration: none;
+  color: black;
+}
+
 .mega_menu .categories .line {
   background-color: #c2c2c2;
   height: 100%;

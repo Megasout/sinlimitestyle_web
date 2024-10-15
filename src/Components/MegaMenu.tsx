@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 type MegaMenuType = {
     setMegaMenuVisibility: (value: boolean) => void,
     menu: number
@@ -32,25 +34,25 @@ function Menu1(props: MenuType) {
         <div className="mega_menu">
             <h3>Por Categorias</h3>
             <div className="categories">
-                <div>
-                    <p>Ver todas las prendas</p>
-                    <p>Categoria 1</p>
-                    <p>Categoria 2</p>
-                    <p>Categoria 3</p>
-                    <p>Categoria 4</p>
-                    <p>Categoria 5</p>
-                    <p>Categoria 6</p>
-                    <p>Categoria 7</p>
+                <div className="block">
+                    <Link to={'./tienda?filtro=prendas'}>Ver todas las prendas</Link>
+                    <Link to={''}>Categoria 1</Link>
+                    <Link to={''}>Categoria 2</Link>
+                    <Link to={''}>Categoria 3</Link>
+                    <Link to={''}>Categoria 4</Link>
+                    <Link to={''}>Categoria 5</Link>
+                    <Link to={''}>Categoria 6</Link>
+                    <Link to={''}>Categoria 7</Link>
                 </div>
-                <div>
-                    <p>Categoria 8</p>
-                    <p>Categoria 9</p>
-                    <p>Categoria 10</p>
-                    <p>Categoria 11</p>
-                    <p>Categoria 12</p>
-                    <p>Categoria 13</p>
-                    <p>Categoria 14</p>
-                    <p>Categoria 15</p>
+                <div className="block">
+                    <Link to={''}>Categoria 8</Link>
+                    <Link to={''}>Categoria 9</Link>
+                    <Link to={''}>Categoria 10</Link>
+                    <Link to={''}>Categoria 11</Link>
+                    <Link to={''}>Categoria 12</Link>
+                    <Link to={''}>Categoria 13</Link>
+                    <Link to={''}>Categoria 14</Link>
+                    <Link to={''}>Categoria 15</Link>
                 </div>
                 <div className="line"></div>
                 <div className="off">
@@ -77,25 +79,25 @@ function Menu2(props: MenuType) {
         <div className="mega_menu">
             <h3>Por Categorias</h3>
             <div className="categories">
-                <div>
-                    <p>Ver todos los accesorios</p>
-                    <p>Categoria 1</p>
-                    <p>Categoria 2</p>
-                    <p>Categoria 3</p>
-                    <p>Categoria 4</p>
-                    <p>Categoria 5</p>
-                    <p>Categoria 6</p>
-                    <p>Categoria 7</p>
+                <div className="block">
+                    <Link to={'./tienda?filtro=accesorios'}>Ver todos los accesorios</Link>
+                    <Link to={''}>Categoria 1</Link>
+                    <Link to={''}>Categoria 2</Link>
+                    <Link to={''}>Categoria 3</Link>
+                    <Link to={''}>Categoria 4</Link>
+                    <Link to={''}>Categoria 5</Link>
+                    <Link to={''}>Categoria 6</Link>
+                    <Link to={''}>Categoria 7</Link>
                 </div>
-                <div>
-                    <p>Categoria 8</p>
-                    <p>Categoria 9</p>
-                    <p>Categoria 10</p>
-                    <p>Categoria 11</p>
-                    <p>Categoria 12</p>
-                    <p>Categoria 13</p>
-                    <p>Categoria 14</p>
-                    <p>Categoria 15</p>
+                <div className="block">
+                    <Link to={''}>Categoria 8</Link>
+                    <Link to={''}>Categoria 9</Link>
+                    <Link to={''}>Categoria 10</Link>
+                    <Link to={''}>Categoria 11</Link>
+                    <Link to={''}>Categoria 12</Link>
+                    <Link to={''}>Categoria 13</Link>
+                    <Link to={''}>Categoria 14</Link>
+                    <Link to={''}>Categoria 15</Link>
                 </div>
                 <div className="line"></div>
                 <div className="off">
