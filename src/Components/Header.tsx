@@ -6,11 +6,12 @@ import useWindowWidth from "../Hooks/useWindowWidth"
 import NavMenu from "./NavMenu"
 
 type HeaderType = {
-    black: boolean
+    black: boolean,
+    shop: boolean
 }
 
 function Header(props: HeaderType) {
-    const { black } = props
+    const { black, shop } = props
 
     const [megaMenuVisibility, setMegaMenuVisibility] = useState(false)
     const [navMenuVisibility, setNavMenuVisibility] = useState(false)
@@ -95,14 +96,15 @@ function Header(props: HeaderType) {
                 }
                 <h1 onClick={() => navigation('/')} onMouseEnter={handleMouseLeave} translate="no">Sin Límite</h1>
                 <div onMouseEnter={handleMouseLeave} className="user">
-                    <div className="button">
-                        <span
-                            style={{ fontSize: width < 500 ? "1.9rem" : "2.1rem", marginTop: "0.2rem" }}
-                            translate="no"
-                            className="material-symbols-outlined">
-                            search
-                        </span>
-                    </div>
+                    {!shop &&
+                        <div className="button">
+                            <span
+                                style={{ fontSize: width < 500 ? "1.9rem" : "2.1rem", marginTop: "0.2rem" }}
+                                translate="no"
+                                className="material-symbols-outlined">
+                                search
+                            </span>
+                        </div>}
                     {width >= 660 &&
                         <div className="button">
                             <span

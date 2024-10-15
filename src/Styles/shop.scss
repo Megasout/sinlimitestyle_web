@@ -1,0 +1,14 @@
+@import "globalvars.scss";
+
+.shop {
+    padding-top: 71.67px;
+    background-color: lavender;
+    height: 52rem;
+    @media (min-width: 500px) {
+        padding-top: 87.63px;
+    }
+
+    @media (min-width: 1280px) {
+        padding-top: 95.59px;
+    }
+}
