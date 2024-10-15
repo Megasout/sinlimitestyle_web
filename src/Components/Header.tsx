@@ -5,8 +5,13 @@ import MegaMenu from "./MegaMenu"
 import useWindowWidth from "../Hooks/useWindowWidth"
 import NavMenu from "./NavMenu"
 
+type HeaderType = {
+    black: boolean
+}
 
-function Header() {
+function Header(props: HeaderType) {
+    const { black } = props
+
     const [megaMenuVisibility, setMegaMenuVisibility] = useState(false)
     const [navMenuVisibility, setNavMenuVisibility] = useState(false)
     const [navMenuHidden, setNavMenuHidden] = useState(true)
@@ -55,7 +60,7 @@ function Header() {
         setMegaMenuVisibility(false)
     }
 
-    const topMenuClassName = `top_menu ${isOnTop ? megaMenuVisibility || navMenuVisibility ? 'black' : '' : 'black'}`
+    const topMenuClassName = `top_menu ${black ? 'black' : isOnTop ? megaMenuVisibility || navMenuVisibility ? 'black' : '' : 'black'}`
 
     return (
         <div style={{ height: !navMenuHidden ? '100vh' : 'auto' }} onMouseLeave={handleMouseLeave} className="header">
