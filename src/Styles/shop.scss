@@ -2,8 +2,11 @@
 
 .shop {
     padding-top: 71.67px;
-    background-color: lavender;
-    height: 52rem;
+    display: flex;
+
+    justify-content: center;
+    gap: 2rem;
+
     @media (min-width: 500px) {
         padding-top: 87.63px;
     }
@@ -11,4 +14,80 @@
     @media (min-width: 1280px) {
         padding-top: 95.59px;
     }
+}
+
+.shop .filters {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.shop .filters .block {
+    display: flex;
+    flex-direction: column;
+    border: 1px #c2c2c2 solid;
+    padding: 1rem;
+    padding-bottom: 0;
+    width: 300px;
+    ;
+}
+
+.shop .filters .block h1 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0;
+    margin-bottom: 1.5rem;
+}
+
+.shop .filters .block a {
+    text-decoration: none;
+    color: black;
+    padding: 1rem;
+    border-top: #c2c2c2 1px solid;
+}
+
+.shop .filters .block form {
+    display: flex;
+    width: auto;
+    flex-direction: column;
+    padding: 1rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.shop .filters .block form input[type="number"] {
+    width: 110px;
+}
+
+.shop .filters .block form input[type="submit"] {
+    width: 118px;
+    padding: 0.2rem;
+    align-self: flex-end;
+    background-color: black;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #272727;
+    }
+}
+
+.shop .filters .block form .line {
+    width: 12px;
+    height: 1px;
+    margin-right: 0.3rem;
+    margin-left: 0.3rem;
+    background-color: #4d4d4d;
+    align-self: center;
+}
+
+.shop .content {
+    display: flex;
+    height: 400px;
+    width: 50%;
+    background-color: lavender;
 }
