@@ -1,11 +1,9 @@
 @import "globalvars.scss";
 
-.shop {
+.shop{
     padding-top: 71.67px;
     display: flex;
-
-    justify-content: center;
-    gap: 2rem;
+    flex-direction: column;
 
     @media (min-width: 500px) {
         padding-top: 87.63px;
@@ -14,6 +12,13 @@
     @media (min-width: 1280px) {
         padding-top: 95.59px;
     }
+}
+
+.shop .body {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
 }
 
 .shop .filters {
@@ -87,11 +92,13 @@
 
 .shop .content {
     display: flex;
-    width: 50%;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .shop .content .options {
     display: flex;
+    flex-direction: column;
     height: min-content;
     width: 100%;
     gap: 0.5rem;
@@ -100,6 +107,10 @@
     padding-left: 0;
     border-top: 1px #c2c2c2 solid;
     border-bottom: 1px #c2c2c2 solid;
+
+    @media (min-width: 1280px) {
+        flex-direction: row;
+    }
 }
 
 .shop .content .options .button {
@@ -134,8 +145,9 @@
     position: relative;
 }
 
-.shop .content .options .search input[type="text"]{
+.shop .content .options .search input[type="search"]{
     border: 1px solid #c2c2c2;
+    // min-height: 35.59px;
     padding-right: 2.5rem;
     padding-left: 0.5rem;
 
@@ -151,4 +163,104 @@
     padding: 0.3rem;
     border-left: 1px #c2c2c2 solid;
     cursor: pointer;
+}
+
+.shop .content .options button{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    border: 1px #c2c2c2 solid;
+    padding: 0.3rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    cursor: pointer;
+}
+
+.shop .banner{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    background-color: #cbcbcb;
+    margin-bottom: 3rem;
+    background-image: repeating-linear-gradient(-45deg, rgba(55, 55, 55, 0.1), rgba(55, 55, 55, 0.1) 1px, transparent 1px, transparent 6px);
+    // background-size: 4px 4px;
+}
+
+.shop .banner h1{
+    font-size: 1.2rem;
+    font-weight: 400;
+    font-family: "Inter", sans-serif;
+}
+
+.shop .content .blocks{
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+
+    @media (min-width: 380px) {
+        grid-template-columns: 1fr 1fr;        
+    }
+
+    @media (min-width: 1000px) {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @media (min-width: 1440px) {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    // &.list{
+
+    // }
+}
+
+.shop .content .blocks .block{
+    background-color: rebeccapurple;
+    cursor: pointer;
+    height: 92.105vw;
+    width: 78.947vw;
+
+    @media (min-width: 380px) {
+        height: 230px;
+        width: 42.429vw;
+    }
+
+    @media (min-width: 420px) {
+        height: 270px;
+    }
+
+    @media (min-width: 585px) {
+        height: 46.286vw;
+    }
+    
+    @media (min-width: 700px) {
+        height: 324px;
+        width: 297px;
+    }
+
+    @media (min-width: 900px) {
+        height: 36vw;
+        width: 33vw;
+    }
+
+    @media (min-width: 1000px) {
+        height: 22.656vw;
+        width: 21.094vw;          
+    }
+
+    @media (min-width: 1280px) {
+        height: 15.972vw;
+        width: 15.278vw; 
+    }
+    
+    @media (min-width: 1440px) {
+        min-width: 220px;
+        min-height: 230px;
+    }
+
+    @media (min-width: 1920px) {
+        height: 11.979vw;
+        width: 11.458vw;   
+    }
 }
