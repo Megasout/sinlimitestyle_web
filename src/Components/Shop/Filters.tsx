@@ -6,13 +6,13 @@ function Filters() {
             <FilterBlock
                 title="Tipo de producto"
                 children={[
-                    <Link to={''}>Prendas</Link>,
-                    <Link to={''}>Accesorios</Link>
+                    <Link key={1} to={''}>Prendas</Link>,
+                    <Link key={2} to={''}>Accesorios</Link>
                 ]} />
             <FilterBlock
                 title="Filtrar por precio"
                 children={[
-                    <form>
+                    <form key={11}>
                         <div style={{ display: "flex", justifyContent: "space-between" }}>
                             <input type="number" placeholder="Mínimo" min={0} />
                             <div className="line"></div>
@@ -24,14 +24,14 @@ function Filters() {
             <FilterBlock
                 title="Categorias"
                 children={[
-                    <Link to={''}>Categoria 1</Link>,
-                    <Link to={''}>Categoria 2</Link>,
-                    <Link to={''}>Categoria 3</Link>,
-                    <Link to={''}>Categoria 4</Link>,
-                    <Link to={''}>Categoria 5</Link>,
-                    <Link to={''}>Categoria 6</Link>,
-                    <Link to={''}>Categoria 7</Link>,
-                    <Link to={''}>Categoria 8</Link>
+                    <Link key={3} to={''}>Categoria 1</Link>,
+                    <Link key={4} to={''}>Categoria 2</Link>,
+                    <Link key={5} to={''}>Categoria 3</Link>,
+                    <Link key={6} to={''}>Categoria 4</Link>,
+                    <Link key={7} to={''}>Categoria 5</Link>,
+                    <Link key={8} to={''}>Categoria 6</Link>,
+                    <Link key={9} to={''}>Categoria 7</Link>,
+                    <Link key={10} to={''}>Categoria 8</Link>
                 ]} />
         </div>
     )
