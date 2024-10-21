@@ -1,6 +1,6 @@
 @import "globalvars.scss";
 
-.shop{
+.shop {
     padding-top: 71.67px;
     display: flex;
     flex-direction: column;
@@ -123,13 +123,13 @@
     padding: 0.3rem;
 }
 
-.shop .content .options .sorting{
+.shop .content .options .sorting {
     display: flex;
     flex-wrap: nowrap;
     gap: 0.2rem;
 }
 
-.shop .content .options .sorting label{
+.shop .content .options .sorting label {
     text-wrap: nowrap;
     align-self: center;
 }
@@ -139,24 +139,24 @@
     border-color: #c2c2c2;
 }
 
-.shop .content .options .search{
+.shop .content .options .search {
     display: flex;
     flex-wrap: nowrap;
     position: relative;
 }
 
-.shop .content .options .search input[type="search"]{
+.shop .content .options .search input[type="search"] {
     border: 1px solid #c2c2c2;
     // min-height: 35.59px;
     padding-right: 2.5rem;
     padding-left: 0.5rem;
 
-    &:focus{
+    &:focus {
         outline: none;
     }
 }
 
-.shop .content .options .search span{
+.shop .content .options .search span {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -165,7 +165,7 @@
     cursor: pointer;
 }
 
-.shop .content .options button{
+.shop .content .options button {
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
@@ -176,7 +176,7 @@
     cursor: pointer;
 }
 
-.shop .banner{
+.shop .banner {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -187,19 +187,19 @@
     // background-size: 4px 4px;
 }
 
-.shop .banner h1{
+.shop .banner h1 {
     font-size: 1.2rem;
     font-weight: 400;
     font-family: "Inter", sans-serif;
 }
 
-.shop .content .blocks{
+.shop .content .blocks {
     display: grid;
     gap: 1.5rem;
     grid-template-columns: 1fr;
 
     @media (min-width: 380px) {
-        grid-template-columns: 1fr 1fr;        
+        grid-template-columns: 1fr 1fr;
     }
 
     @media (min-width: 1000px) {
@@ -215,7 +215,7 @@
     // }
 }
 
-.shop .content .blocks .block{
+.shop .content .blocks .block {
     background-color: rebeccapurple;
     cursor: pointer;
     height: 92.105vw;
@@ -233,7 +233,7 @@
     @media (min-width: 585px) {
         height: 46.286vw;
     }
-    
+
     @media (min-width: 700px) {
         height: 324px;
         width: 297px;
@@ -246,14 +246,14 @@
 
     @media (min-width: 1000px) {
         height: 22.656vw;
-        width: 21.094vw;          
+        width: 21.094vw;
     }
 
     @media (min-width: 1280px) {
         height: 15.972vw;
-        width: 15.278vw; 
+        width: 15.278vw;
     }
-    
+
     @media (min-width: 1440px) {
         min-width: 220px;
         min-height: 230px;
@@ -261,6 +261,80 @@
 
     @media (min-width: 1920px) {
         height: 11.979vw;
-        width: 11.458vw;   
+        width: 11.458vw;
     }
+}
+
+.shop .side_filters {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    z-index: 20000;
+
+    background-color: white;
+    border-right: 1px solid #c2c2c2;
+    transition: transform 0.4s ease;
+    transform: translate(100%, 0);
+
+    @media (min-width: 500px) {
+        width: 500px;
+        transform: translate(-500px, 0);
+    }
+
+    &.open {
+        transform: translate(0, 0);
+    }
+
+    &.close {
+        transform: translate(-100%, 0);
+
+        @media (min-width: 500px) {
+            transform: translate(-500px, 0);
+        }
+    }
+
+    &.hidden {
+        opacity: 0;
+        width: 0px;
+        height: 0px;
+    }
+}
+
+.shop .side_filters::before {
+    content: "";
+    position: fixed;
+    width: 100vw;
+    height: 100%;
+    left: 500px;
+    background-color: transparent;
+    transition: opacity 0.4s ease;
+
+    @media (min-width: 500px) {
+        background-color: #0000005f;
+    }
+}
+
+.shop .side_filters.close::before {
+    opacity: 0;
+}
+
+.shop .side_filters.open::before {
+    opacity: 1;
+}
+
+.shop .side_filters.hidden::before {
+    width: 0px;
+    height: 0px;
+}
+
+.shop .side_filters .close_button {
+    position: absolute;
+    right: 0.3rem;
+    top: 0.3rem;
+    background-color: black;
+    border-radius: 5px;
+    padding: 0.5rem;
+    color: white;
+    cursor: pointer;
 }

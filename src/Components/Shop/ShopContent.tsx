@@ -1,13 +1,14 @@
 type ShopContentType = {
-    width: number
+    width: number,
+    onClickFilterButton: () => void
 }
 
 function ShopContent(props: ShopContentType) {
-    const { width } = props
+    const { width, onClickFilterButton } = props
 
     return (
         <div className="content">
-            <Options width={width} />
+            <Options width={width} onClickFilterButton={onClickFilterButton} />
             <div className="blocks">
                 <div className="block"></div>
                 <div className="block"></div>
@@ -26,11 +27,12 @@ function ShopContent(props: ShopContentType) {
 export default ShopContent
 
 type OptionsType = {
-    width: number
+    width: number,
+    onClickFilterButton: () => void
 }
 
 function Options(props: OptionsType) {
-    const { width } = props
+    const { width, onClickFilterButton } = props
 
     return (
         <div className="options">
@@ -72,12 +74,12 @@ function Options(props: OptionsType) {
             {width < 1280 && width >= 470 &&
                 <>
                     <div style={{ display: "flex", gap: "0.5rem" }}>
-                        <button>
+                        <button onClick={onClickFilterButton}>
                             <span
                                 translate="no"
                                 className="material-symbols-outlined">
                                 menu
-                            </span>Filter</button>
+                            </span>Filtros</button>
                         <div style={{ width: '100%' }}></div>
                         <div className="search">
                             <input type="search" placeholder="Buscar Productos..."></input>
@@ -133,12 +135,12 @@ function Options(props: OptionsType) {
                     </div>
                     <div style={{ height: "1px", backgroundColor: "#c2c2c2" }}></div>
                     <div style={{ display: "flex", gap: "0.5rem" }}>
-                        <button>
+                        <button onClick={onClickFilterButton}>
                             <span
                                 translate="no"
                                 className="material-symbols-outlined">
                                 menu
-                            </span>Filter</button>
+                            </span>Filtros</button>
                         <div style={{ width: '100%' }}></div>
                         <div className="button">
                             <span

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import throttle from "lodash.throttle"
 import MegaMenu from "./MegaMenu"
@@ -10,7 +10,11 @@ type HeaderType = {
     shop: boolean
 }
 
-function Header(props: HeaderType) {
+export interface HeaderRef {
+    hiddenNavMenu: () => void
+}
+
+const Header = forwardRef((props: HeaderType, ref) => {
     const { black, shop } = props
 
     const [megaMenuVisibility, setMegaMenuVisibility] = useState(false)
@@ -60,6 +64,10 @@ function Header(props: HeaderType) {
     const handleMouseLeave = () => {
         setMegaMenuVisibility(false)
     }
+
+    useImperativeHandle(ref, () => ({
+        hiddenNavMenu: () => setNavMenuVisibility(false)
+    }))
 
     const topMenuClassName = `top_menu ${black ? 'black' : isOnTop ? megaMenuVisibility || navMenuVisibility ? 'black' : '' : 'black'}`
 
@@ -133,7 +141,7 @@ function Header(props: HeaderType) {
                 setNavMenuVisibility={setNavMenuVisibility} />
         </div>
     )
-}
+})
 
 export default Header
 
