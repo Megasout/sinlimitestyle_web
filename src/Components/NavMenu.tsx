@@ -17,18 +17,18 @@ function NavMenu(props: NavMenuType) {
                 close
             </span>
 
-            <NavButton to="/" icon="home" text="Pagina Principal"/>
+            <NavButton className={className} to="/" icon="home" text="Pagina Principal" />
             <div className="line"></div>
-            <NavButton to="./tienda?filtro=prendas" icon="Apparel" text="Prendas"/>
-            <NavButton to="./tienda?filtro=accesorios" icon="category" text="Accesorios"/>
-            <NavButton to="" icon="lists" text="Colecciones"/>
-            <NavButton to="" icon="Sell" text="Ofertas"/>
+            <NavButton className={className} to="./tienda?filtro=prendas" icon="Apparel" text="Prendas" />
+            <NavButton className={className} to="./tienda?filtro=accesorios" icon="category" text="Accesorios" />
+            <NavButton className={className} to="" icon="lists" text="Colecciones" />
+            <NavButton className={className} to="" icon="Sell" text="Ofertas" />
             <div className="line"></div>
-            <div style={{height: "100%"}}></div>
+            <div style={{ height: "100%" }}></div>
             <div className="line"></div>
-            <NavButton to="" icon="account_circle" text="Usuario"/>
-            <NavButton to="" icon="info" text="Contacto"/>
-            <div style={{marginTop: "5rem"}}></div>
+            <NavButton className={className} to="" icon="account_circle" text="Usuario" />
+            <NavButton className={className} to="" icon="info" text="Contacto" />
+            <div style={{ marginTop: "5rem" }}></div>
         </div>
     )
 }
@@ -36,17 +36,19 @@ function NavMenu(props: NavMenuType) {
 export default NavMenu
 
 type NavButtonType = {
+    className: string,
     icon: string,
     text: string,
     to: string
 }
 
 function NavButton(props: NavButtonType) {
-    const {icon, text, to} = props
+    const { className, icon, text, to } = props
     const navigation = useNavigate()
 
     const handleOnClick = () => {
-        navigation(to)
+        if (!className.includes('close'))
+            navigation(to)
     }
 
     return (
