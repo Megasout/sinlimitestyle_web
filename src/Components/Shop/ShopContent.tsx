@@ -121,7 +121,7 @@ function Options(props: OptionsType) {
             {width < 470 &&
                 <>
                     <div style={{ display: "flex", gap: "0.5rem" }}>
-                        <div style={{ width: "100%" }} className="search">
+                        <div style={width >= 315 ? { width: "100%" } : {}} className="search">
                             <input
                                 style={{ width: "100%", minHeight: "35.59px" }}
                                 type="search"

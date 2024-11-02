@@ -51,7 +51,7 @@ function NavButton(props: NavButtonType) {
             navigation(to)
     }
 
-    return (
+    return !className.includes('hidden') ? (
         <div className="button" onClick={handleOnClick}>
             <span
                 style={{ userSelect: "none" }}
@@ -67,5 +67,5 @@ function NavButton(props: NavButtonType) {
                 chevron_right
             </span>
         </div>
-    )
+    ) : <></>
 }
