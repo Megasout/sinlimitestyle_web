@@ -14,21 +14,28 @@ function FilterPrice(props: FilterPriceType) {
     const navigator = useNavigate()
 
     const handleOnClick = () => {
-        if(lowPrice && !highPrice){
+        if (lowPrice && !highPrice) {
             newSearchParams.set('min', '0')
             newSearchParams.set('max', lowPrice.toString())
             navigator(`/tienda?${newSearchParams}`)
             return
         }
 
-        if(highPrice && !lowPrice){
+        if (highPrice && !lowPrice) {
             newSearchParams.set('min', '0')
             newSearchParams.set('max', highPrice.toString())
             navigator(`/tienda?${newSearchParams}`)
             return
         }
 
-        if(!highPrice || !lowPrice)
+        if (highPrice == 0 && lowPrice == 0) {
+            newSearchParams.delete('min')
+            newSearchParams.delete('max')
+            navigator(`/tienda?${newSearchParams}`)
+            return
+        }
+
+        if (!highPrice || !lowPrice)
             return
 
         if (highPrice < lowPrice) {
