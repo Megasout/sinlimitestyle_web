@@ -131,16 +131,6 @@
     }
 }
 
-.shop .content .options .button {
-    cursor: pointer;
-}
-
-.shop .content .options .button span {
-    color: #4d4d4d;
-    border: 1px #c2c2c2 solid;
-    padding: 0.3rem;
-}
-
 .shop .content .options .sorting {
     display: flex;
     flex-wrap: nowrap;
@@ -179,6 +169,7 @@
 }
 
 .shop .content .options .search span {
+    user-select: none;
     position: absolute;
     right: 0;
     bottom: 0;
