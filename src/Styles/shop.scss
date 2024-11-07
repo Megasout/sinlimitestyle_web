@@ -50,6 +50,25 @@
     border-top: #c2c2c2 1px solid;
 }
 
+.shop .filters .block .filter_button{
+    padding: 0.5rem;
+    border-top: #c2c2c2 1px solid;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover label{
+        color: rgb(213, 139, 20);
+    }
+}
+
+.shop .filters .block .filter_button label{
+    cursor: pointer;
+}
+
+.shop .filters .block .filter_button input{
+    cursor: pointer;
+}
+
 .shop .filters .block form {
     display: flex;
     width: auto;
@@ -65,7 +84,7 @@
     width: 110px;
 }
 
-.shop .filters .block form input[type="submit"] {
+.shop .filters .block form button {
     width: 118px;
     padding: 0.2rem;
     align-self: flex-end;
@@ -271,14 +290,11 @@
 .shop .side_filters {
     position: fixed;
     width: 100%;
-    // height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
     top: 0;
     bottom: 0;
     z-index: 20000;
-    padding-top: 4rem;
-    padding-bottom: 2rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -351,66 +367,19 @@
     cursor: pointer;
 }
 
-.shop .side_filters .block {
-    display: flex;
-    flex-direction: column;
-    border-top: 1px #c2c2c2 solid;
-    border-bottom: 1px #c2c2c2 solid;
-    padding: 1rem;
-    padding-bottom: 0;
+.shop .side_filters .filters {
+    gap: 1rem;
+    padding-top: 4rem;
+    padding-bottom: 2rem;
 }
 
-.shop .side_filters .block h1 {
-    font-size: 1.2rem;
-    font-weight: 500;
-    margin: 0;
-    margin-bottom: 1.5rem;
-}
-
-.shop .side_filters .block a {
-    text-decoration: none;
-    color: black;
-    padding: 1rem;
-    border-top: #c2c2c2 1px solid;
-}
-
-.shop .side_filters .block form {
-    display: flex;
+.shop .side_filters .filters .block{
     width: auto;
-    flex-direction: column;
-    padding: 1rem;
-    padding-top: 0;
-    padding-bottom: 0;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-.shop .side_filters .block form input[type="number"] {
-    max-width: 170px;
-    width: 30vw;
-}
-
-.shop .side_filters .block form input[type="submit"] {
-    max-width: 190px;
-    width: 32vw;
-    padding: 0.2rem;
-    align-self: flex-end;
-    background-color: black;
     border: none;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-        background-color: #272727;
-    }
+    border-bottom: 1px #c2c2c2 solid;
 }
 
-.shop .side_filters .block form .line {
-    width: 12px;
-    height: 1px;
-    margin-right: 0.3rem;
-    margin-left: 0.3rem;
-    background-color: #4d4d4d;
-    align-self: center;
+.shop .side_filters .filters .block form input{
+    width: 100%;
 }
+

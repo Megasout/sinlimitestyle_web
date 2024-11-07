@@ -1,38 +1,72 @@
-import { Link } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
+import FilterButton from "./FilterButton"
+import FilterPrice from "./FilterPrice"
 
-function Filters() {
+type FilterType = {
+    categories: any,
+    sizes: any
+}
+
+function Filters(props: FilterType) {
+    const { categories, sizes } = props
+
+    const [searchParams] = useSearchParams()
+    const deals = searchParams.get('ofertas') == 'true' ? true : false
+    const categoryParam = searchParams.get('categoria')
+    const sizeParams = searchParams.getAll('talle')
+    const lowPrice = searchParams.get('min')
+    const highPrice = searchParams.get('max')
+
     return (
         <div className="filters">
             <FilterBlock
-                title="Tipo de producto"
+                title="Ofertas y descuentos"
                 children={[
-                    <Link key={1} to={''}>Prendas</Link>,
-                    <Link key={2} to={''}>Accesorios</Link>
+                    <FilterButton
+                        key={1}
+                        searchParams={searchParams}
+                        isActive={deals}
+                        text="Todas las ofertas"
+                        param="ofertas"
+                        value={deals ? null : 'true'} />
                 ]} />
             <FilterBlock
-                title="Filtrar por precio"
+                title="Filtrar por precio (en UYU)"
                 children={[
-                    <form key={11}>
-                        <div style={{ display: "flex", justifyContent: "space-between" }}>
-                            <input type="number" placeholder="Mínimo" min={0} />
-                            <div className="line"></div>
-                            <input type="number" min={0} placeholder="Máximo" />
-                        </div>
-                        <input type="submit" value={'Filtrar'}></input>
-                    </form>
+                    <FilterPrice
+                        key={11}
+                        highPrice={highPrice ? parseFloat(highPrice) : undefined}
+                        lowPrice={lowPrice ? parseFloat(lowPrice) : undefined}
+                        searchParams={searchParams} />
                 ]} />
             <FilterBlock
                 title="Categorias"
-                children={[
-                    <Link key={3} to={''}>Categoria 1</Link>,
-                    <Link key={4} to={''}>Categoria 2</Link>,
-                    <Link key={5} to={''}>Categoria 3</Link>,
-                    <Link key={6} to={''}>Categoria 4</Link>,
-                    <Link key={7} to={''}>Categoria 5</Link>,
-                    <Link key={8} to={''}>Categoria 6</Link>,
-                    <Link key={9} to={''}>Categoria 7</Link>,
-                    <Link key={10} to={''}>Categoria 8</Link>
-                ]} />
+                children={categories.map((category: any) =>
+                    <FilterButton
+                        key={category.id}
+                        searchParams={searchParams}
+                        isActive={categoryParam ? categoryParam == category.id : false}
+                        text={category.nombre}
+                        param="categoria"
+                        value={categoryParam ? categoryParam == category.id ? null : category.id : category.id}
+                        deleteParams={['talle']} />)}
+            />
+            {categoryParam &&
+                <FilterBlock
+                    title="Talles"
+                    children={
+                        sizes.map((size: any) =>
+                            <FilterButton
+                                key={size.id}
+                                searchParams={searchParams}
+                                isActive={sizeParams.includes(size.id.toString())}
+                                text={size.talle}
+                                param="talle"
+                                value={sizeParams.includes(size.id.toString()) ? null : size.id}
+                                multiValue
+                                deleteValue={size.id} />)
+                    } />
+            }
         </div>
     )
 }
@@ -53,4 +87,4 @@ function FilterBlock(props: FilterBlockType) {
             {children}
         </div>
     )
-} 
+}

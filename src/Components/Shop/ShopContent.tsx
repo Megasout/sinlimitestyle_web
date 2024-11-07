@@ -142,13 +142,14 @@ function Options(props: OptionsType) {
                                 menu
                             </span>Filtros</button>
                         <div style={{ width: '100%' }}></div>
-                        <div className="button">
-                            <span
-                                translate="no"
-                                className="material-symbols-outlined">
-                                grid_view
-                            </span>
-                        </div>
+                        {width >= 380 &&
+                            <div className="button">
+                                <span
+                                    translate="no"
+                                    className="material-symbols-outlined">
+                                    grid_view
+                                </span>
+                            </div>}
                         <div className="button">
                             <span
                                 translate="no"
