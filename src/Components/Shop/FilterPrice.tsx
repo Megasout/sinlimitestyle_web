@@ -35,8 +35,15 @@ function FilterPrice(props: FilterPriceType) {
             return
         }
 
-        if (!highPrice || !lowPrice)
+        if (!highPrice || !lowPrice) {
+            if (newSearchParams.get('min') || newSearchParams.get('max')) {
+                newSearchParams.delete('min')
+                newSearchParams.delete('max')
+                navigator(`/tienda?${newSearchParams}`)
+                return
+            }
             return
+        }
 
         if (highPrice < lowPrice) {
             newSearchParams.set('min', highPrice.toString())
