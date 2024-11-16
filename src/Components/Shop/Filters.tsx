@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom"
+import { useLocation, useSearchParams } from "react-router-dom"
 import FilterButton from "./FilterButton"
 import FilterPrice from "./FilterPrice"
 
@@ -9,6 +9,7 @@ type FilterType = {
 
 function Filters(props: FilterType) {
     const { categories, sizes } = props
+    const location = useLocation()
 
     const [searchParams] = useSearchParams()
     const deals = searchParams.get('ofertas') == 'true' ? true : false
@@ -18,7 +19,7 @@ function Filters(props: FilterType) {
     const highPrice = searchParams.get('max')
 
     return (
-        <div className="filters">
+        <div key={location.search} className="filters">
             <FilterBlock
                 title="Ofertas y descuentos"
                 children={[

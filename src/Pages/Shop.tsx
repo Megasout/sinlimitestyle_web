@@ -4,7 +4,7 @@ import ShopContent from "../Components/Shop/ShopContent"
 import useWindowWidth from "../Hooks/useWindowWidth"
 import SideFilters, { ShopSideFiltersRef } from "../Components/Shop/SideFilters"
 import { useEffect, useRef } from "react"
-import { useLoaderData, useLocation, useNavigate, useSearchParams } from "react-router-dom"
+import { useLoaderData, useNavigate, useSearchParams } from "react-router-dom"
 import getFromTable, { getFromTableQuery } from "../Models/get"
 
 export async function loader({ request }: any) {
@@ -18,7 +18,7 @@ export async function loader({ request }: any) {
 
     const sizeParams = searchParams.getAll('talle')
 
-    if(sizeParams.length > 0){
+    if (sizeParams.length > 0) {
         const [productos, miniaturas, categories, sizes] = await Promise.all([
             getFromTableQuery(`/get/productos/talles`, 'talles', sizeParams),
             getFromTable(`/get/miniaturas/${filtro}s`),
@@ -44,7 +44,7 @@ export async function loader({ request }: any) {
         getFromTable(`/get/categorias/bytype/${filtro}`)])
 
     const sizes = {}
-    return {  productos, miniaturas, categories, sizes }
+    return { productos, miniaturas, categories, sizes }
 }
 
 function Shop() {
@@ -53,7 +53,6 @@ function Shop() {
 
     const filter = searchParams.get('filtro') ?? ' '
     const navigate = useNavigate()
-    const location = useLocation()
 
     useEffect(() => {
         if (filter == 'prendas' || filter == 'accesorios') {
@@ -71,9 +70,9 @@ function Shop() {
     }
 
     return (
-        <div key={location.search} className="shop">
+        <div className="shop">
             <div className="banner">
-                <h1>Pagina principal{' > '} {filter![0].toUpperCase() + filter?.slice(1)}</h1>
+                <h1>{filter![0].toUpperCase() + filter?.slice(1)}</h1>
             </div>
             <div className="body">
                 {width >= 1280 &&
@@ -83,9 +82,15 @@ function Shop() {
                     onClickFilterButton={onClickfilterButton}
                     miniaturas={miniaturas}
                     productos={productos}
-                    categories={categories} />
+                    categories={categories}
+                    sizes={sizes} />
             </div>
-            <SideFilters ref={sideFilterRef} sizes={sizes} categories={categories} width={width} />
+            <SideFilters
+                ref={sideFilterRef}
+                sizes={sizes}
+                categories={categories}
+                width={width}
+                searchParams={searchParams} />
         </div>
     )
 }

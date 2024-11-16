@@ -4,6 +4,7 @@ import React from "react"
 
 type ShopContentType = {
     width: number,
+    sizes: any[],
     productos: Array<any>,
     miniaturas: Array<any>,
     categories: Array<any>
@@ -11,7 +12,7 @@ type ShopContentType = {
 }
 
 function ShopContent(props: ShopContentType) {
-    const { categories, miniaturas, productos, width, onClickFilterButton } = props
+    const { categories, sizes, miniaturas, productos, width, onClickFilterButton } = props
     const [searchParams] = useSearchParams()
     const orderBy = searchParams.get('orden') ?? 'Relevancia'
     const search = searchParams.get('buscar')
@@ -31,9 +32,11 @@ function ShopContent(props: ShopContentType) {
                 orderBy={orderBy}
                 search={search}
                 width={width}
+                categories={categories}
+                sizes={sizes}
                 onClickFilterButton={onClickFilterButton} />
             <div className="blocks">
-                {filteredProducts.length > 0 ? filteredProducts.map(producto =>
+                {filteredProducts.map(producto =>
                     <Producto
                         key={producto.id}
                         nombre={producto.nombre}
@@ -41,9 +44,9 @@ function ShopContent(props: ShopContentType) {
                         nombreCategoria={producto.id_categoria != null ?
                             getCategoryName(categories, producto.id_categoria) : 'Ninguna'}
                         miniatura={getImage(miniaturas, producto.id)}
-                        descuento={producto.descuento} />
-                ) :
-                    <div className="white"></div>}
+                        descuento={producto.descuento} />)}
+                <WhiteSpace width={width} length={filteredProducts.length} />
+
             </div>
         </div>
     )
@@ -153,4 +156,49 @@ function getOff(price: number, off: number): string {
 function getCategoryName(categories: Array<any>, id: any): string {
     const category = categories.find((category => category.id == id))
     return category.nombre
+}
+
+type WhiteSpaceType = {
+    length: number,
+    width: number
+}
+
+function WhiteSpace(props: WhiteSpaceType) {
+    const { length, width } = props
+
+    if (width >= 1615 && length < 5) {
+        return Array.from({ length: 5 - length }).map((_, index) =>
+            <div key={index} className="white"></div>)
+    }
+
+    if (width >= 1430 && length < 4) {
+        return Array.from({ length: 4 - length }).map((_, index) =>
+            <div key={index} className="white"></div>)
+    }
+
+    if (width >= 1280 && length < 3) {
+        return Array.from({ length: 3 - length }).map((_, index) =>
+            <div key={index} className="white"></div>)
+    }
+
+    if (width >= 1070 && length < 4) {
+        return Array.from({ length: 4 - length }).map((_, index) =>
+            <div key={index} className="white"></div>)
+    }
+
+    if (width >= 600 && length < 3) {
+        return Array.from({ length: 3 - length }).map((_, index) =>
+            <div key={index} className="white"></div>)
+    }
+
+    if (width >= 400 && length < 2) {
+        return Array.from({ length: 3 - length }).map((_, index) =>
+            <div key={index} className="white"></div>)
+    }
+
+    if (length == 0) {
+        return <div className="white"></div>
+    }
+
+    return <></>
 }

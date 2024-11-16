@@ -51,9 +51,11 @@ const Header = forwardRef((props: HeaderType, ref) => {
     useEffect(() => {
         if (!navMenuVisibility) {
             timeOutMenu.current = setTimeout(() => setNavMenuHidden(true), 400);
+            document.body.style.overflow = "auto"
         } else {
             clearTimeout(timeOutMenu.current)
             setNavMenuHidden(false)
+            document.body.style.overflow = "hidden"
         }
 
         return () => {

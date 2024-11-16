@@ -5,7 +5,7 @@
   flex-direction: column;
   width: 100%;
   position: fixed;
-  z-index: 20000;
+  z-index: 10000;
 }
 
 .top_menu {
@@ -265,7 +265,7 @@
   }
 
   &.hidden {
-    opacity: 1;
+    // opacity: 1;
     width: 0px;
     height: 0px;
 
