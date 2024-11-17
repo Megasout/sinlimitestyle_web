@@ -11,7 +11,7 @@ function Footer() {
                 <div className="block large">
                     <h1>Suscríbete para recibir ofertas y noticias</h1>
                     <form>
-                        <input type="email" placeholder="Email" />
+                        <input name="email" autoComplete="email" type="email" placeholder="Email" />
                         <input type="submit" value={'Suscribirse'} />
                     </form>
                     <p>Al suscribirse, usted confirma que ha leído y comprendido nuestra

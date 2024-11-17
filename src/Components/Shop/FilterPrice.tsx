@@ -58,9 +58,10 @@ function FilterPrice(props: FilterPriceType) {
     }
 
     return (
-        <form>
+        <form className="price">
             <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <input
+                    name="min"
                     type="number"
                     placeholder="Mínimo"
                     min={0}
@@ -68,6 +69,7 @@ function FilterPrice(props: FilterPriceType) {
                     onChange={(e) => setLowPrice(e.target.value ? parseFloat(e.target.value) : undefined)} />
                 <div className="line"></div>
                 <input
+                    name="max"
                     type="number"
                     placeholder="Máximo"
                     min={0}

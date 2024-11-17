@@ -1,6 +1,6 @@
-import { useSearchParams } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import SearchOptions from "./SearchOptions"
-import React from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 type ShopContentType = {
     width: number,
@@ -20,10 +20,32 @@ function ShopContent(props: ShopContentType) {
     const minPrice = searchParams.get('min')
     const ofertas = searchParams.get('ofertas')
 
+    const navigator = useNavigate()
+    const [pageO, setPageO] = useState(searchParams.get('pg'))
+
     const filteredProducts = getProducts({
         productos, max: maxPrice, buscar: search,
         min: minPrice, orden: orderBy, ofertas
     } as GetProductosType)
+
+    const numberOfProducts = 13
+    const numberOfPages = Math.ceil(filteredProducts.length / numberOfProducts)
+    const rawPage = searchParams.get('pg') ? parseInt(searchParams.get('pg')!) : 1
+    const page = !isNaN(rawPage) && rawPage > 0 &&
+        rawPage.toString() === searchParams.get('pg') && rawPage <= numberOfPages
+        ? rawPage
+        : 1
+
+    useEffect(() => {
+        if (pageO && pageO != '1' && searchParams.get('pg') == pageO) {
+            searchParams.set('pg', '1')
+            setPageO('1')
+            navigator(`/tienda?${searchParams}`)
+        } else 
+            setPageO(searchParams.get('pg'))
+        
+
+    }, [searchParams])
 
     return (
         <div className="content">
@@ -36,17 +58,20 @@ function ShopContent(props: ShopContentType) {
                 sizes={sizes}
                 onClickFilterButton={onClickFilterButton} />
             <div className="blocks">
-                {filteredProducts.map(producto =>
-                    <Producto
-                        key={producto.id}
-                        nombre={producto.nombre}
-                        precio={producto.precio}
-                        nombreCategoria={producto.id_categoria != null ?
-                            getCategoryName(categories, producto.id_categoria) : 'Ninguna'}
-                        miniatura={getImage(miniaturas, producto.id)}
-                        descuento={producto.descuento} />)}
+                {filteredProducts.slice(numberOfProducts * (page - 1),
+                    numberOfProducts * (page)).map(producto =>
+                        <Producto
+                            key={producto.id}
+                            nombre={producto.nombre}
+                            precio={producto.precio}
+                            nombreCategoria={producto.id_categoria != null ?
+                                getCategoryName(categories, producto.id_categoria) : 'Ninguna'}
+                            miniatura={getImage(miniaturas, producto.id)}
+                            descuento={producto.descuento} />)}
                 <WhiteSpace width={width} length={filteredProducts.length} />
-
+            </div>
+            <div className="pages">
+                <Page selectPage={page} length={numberOfPages} searchParams={searchParams} />
             </div>
         </div>
     )
@@ -54,9 +79,140 @@ function ShopContent(props: ShopContentType) {
 
 export default ShopContent
 
+type PageType = {
+    length: number,
+    selectPage: number,
+    searchParams: URLSearchParams
+}
+
+function Page(props: PageType) {
+    const { length, selectPage } = props
+
+    const newSearchParams = new URLSearchParams(props.searchParams)
+    const navigation = useNavigate()
+
+    const navigationToPage = (to: number | string) => {
+        newSearchParams.set('pg', to.toString())
+        navigation(`/tienda?${newSearchParams.toString()}`)
+        return
+    }
+
+    if (length === 1) return <></>;
+
+    const renderPageNumbers = (start: number, end: number) =>
+        Array.from({ length: end - start + 1 }, (_, index) => start + index).map((num) => (
+            <p
+                key={num}
+                className={`page ${selectPage === num ? 'select' : ''}`}
+                onClick={() => navigationToPage(num)}>
+                {num}
+            </p>
+        ));
+
+    const array = Array.from({ length: length }).map((_, index) => index + 1)
+    const elements = obtenerElementos(array, selectPage - 1);
+
+    const prevPage = () => navigationToPage(selectPage - 1);
+    const nextPage = () => navigationToPage(selectPage + 1);
+
+    const getPageNavigation = (start: number, end: number) => (
+        <>
+            {selectPage > 1 && <i className="page fa-solid fa-arrow-left" onClick={prevPage}></i>}
+            {start > 1 && <p className="page" onClick={() => navigationToPage(1)}>1</p>}
+            {start > 2 && <Ellipsis navigationToPage={navigationToPage} />}
+            {renderPageNumbers(start, end)}
+            {end < length - 1 && <Ellipsis navigationToPage={navigationToPage} />}
+            {end < length && <p className="page" onClick={() => navigationToPage(length)}>{length}</p>}
+            {selectPage < length && <i className="page fa-solid fa-arrow-right" onClick={nextPage}></i>}
+        </>
+    );
+
+    if (length <= 5)
+        return getPageNavigation(1, length)
+
+    if (selectPage == 1)
+        return (
+            <>
+                {renderPageNumbers(1, elements[elements.length - 1])}
+                <Ellipsis navigationToPage={navigationToPage} />
+                <p className="page" onClick={() => navigationToPage(length)}>{length}</p>
+                <i className="page fa-solid fa-arrow-right" onClick={nextPage}></i>
+            </>
+        )
+    if (selectPage == length)
+        return (
+            <>
+                <i className="page fa-solid fa-arrow-left" onClick={prevPage}></i>
+                <p className="page" onClick={() => navigationToPage(1)}>{1}</p>
+                <Ellipsis navigationToPage={navigationToPage} />
+                {renderPageNumbers(elements[0], elements[elements.length - 1])}
+            </>
+        )
+
+    return getPageNavigation(elements[0], elements[elements.length - 1])
+}
+
+function obtenerElementos(array: any[], x: number): any[] {
+    const start = Math.max(0, x - 2);
+    const end = Math.min(array.length - 1, x + 2);
+    return array.slice(start, end + 1);
+}
+
+type EllipsisType = {
+    navigationToPage: (to: number | string) => void
+}
+
+function Ellipsis(props: EllipsisType) {
+    const { navigationToPage } = props
+
+    const [active, setActive] = useState(false)
+    const ref = useRef<HTMLDivElement>(null)
+    const [text, setText] = useState('')
+
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            if (ref.current && !ref.current.contains(e.target as Node))
+                setActive(false)
+        }
+
+        document.addEventListener('mousedown', handleClickOutside)
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [])
+
+    const handleOnClick = () => {
+        if (!active)
+            setActive(true)
+    }
+
+    const handleNavigation = () => {
+        setActive(false)
+        navigationToPage(text)
+    }
+
+    return (
+        <div ref={ref} className="page" onClick={handleOnClick}>
+            <p>...</p>
+            {active &&
+                <div className="page_search">
+                    <p>Ir a...</p>
+                    <form>
+                        <input
+                            name="navigate"
+                            value={text}
+                            onChange={(e) => setText(e.target.value)}
+                            type="text"></input>
+                        <button onClick={handleNavigation} type="button">Ir</button>
+                    </form>
+                </div>}
+        </div>);
+}
+
 type ProductoType = {
     nombre: string,
-    miniatura: React.CSSProperties,
+    miniatura: React.CSSProperties | null,
     descuento: number,
     precio: number,
     nombreCategoria: string
@@ -67,7 +223,12 @@ function Producto(props: ProductoType) {
 
     return (
         <div className="block">
-            <div className="image" style={miniatura}></div>
+            {miniatura ?
+                <div className="image" style={miniatura}></div>
+                : <div className="image" style={{ backgroundColor: "#bdbdbd" }}>
+                    <i style={{ fontSize: "2.8rem" }} className="fa-regular fa-image"></i>
+                    <p style={{ userSelect: "none" }}>Sin Miniatura</p>
+                </div>}
             <div className="info">
                 <h2>{nombre}</h2>
                 <div className="numbers">
@@ -142,8 +303,11 @@ function finalPrice(off: number, price: number): number {
     return price - (price * off / 100)
 }
 
-function getImage(miniaturas: any, id: any): React.CSSProperties {
+function getImage(miniaturas: any, id: any): React.CSSProperties | null {
     const pos = miniaturas.findIndex((miniatura: any) => miniatura.id_producto === id);
+
+    if (pos == -1)
+        return null
 
     return { "--image-sourse": `url("${miniaturas[pos].url}")` } as React.CSSProperties
 }

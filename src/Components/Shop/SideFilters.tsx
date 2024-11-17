@@ -50,7 +50,6 @@ const SideFilters = forwardRef((props: SideFiltersType, ref) => {
             timeOutMenu.current = setTimeout(() => setFilterHidden(true), 400);
             document.body.style.overflow = "auto"
         } else {
-            // clearTimeout(timeOutMenu.current)
             timeOutMenu.current = setTimeout(() => setCanClose(true), 400);
             setFilterHidden(false)
             document.body.style.overflow = "hidden"

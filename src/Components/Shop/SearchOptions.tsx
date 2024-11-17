@@ -109,6 +109,7 @@ function InputSearch(props: InputSearchType) {
     return (
         <div style={containerStyle} className="search">
             <input
+                name="search"
                 style={inputStyle}
                 type="search"
                 placeholder="Buscar Productos..."
@@ -142,14 +143,14 @@ function OrderBy(props: OrderByType) {
     }
 
     return (
-        <div style={style} className="sorting">
-            <label>Ordenar por </label>
-            <select defaultValue={orderBy} onChange={handleOnChange}>
+        <form style={style} className="sorting">
+            <label htmlFor="order">Ordenar por </label>
+            <select id="order" defaultValue={orderBy} onChange={handleOnChange}>
                 <option value={'Relevancia'}>Relevancia</option>
                 <option value={'Mayor Precio'}>Mayor Precio</option>
                 <option value={'Menor Precio'}>Menor Precio</option>
             </select>
-        </div>
+        </form>
     )
 }
 

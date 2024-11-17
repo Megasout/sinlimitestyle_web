@@ -63,10 +63,10 @@ function FilterButton(props: FilterButtonType) {
     }
 
     return (
-        <div className="filter_button" onClick={handleOnClick}>
-            <input type="checkbox" checked={isActive} readOnly />
-            <label>{' ' + text}</label>
-        </div>
+        <form className="filter_button" onClick={handleOnClick}>
+            <input id="check" type="checkbox" checked={isActive} readOnly />
+            <label htmlFor="check">{' ' + text}</label>
+        </form>
     )
 }
 export default FilterButton
