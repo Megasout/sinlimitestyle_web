@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "./Pages/Home";
 import Layout from "./Components/Layout";
-import Shop, {loader as shopData} from "./Pages/Shop";
+import Shop, { loader as shopData } from "./Pages/Shop";
+import Product from "./Pages/Product";
 
 const router = createBrowserRouter([
     {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
                 path: 'tienda',
                 element: <Shop />,
                 loader: shopData
+            },
+            {
+                path: 'tienda/:ID/producto',
+                element: <Product />
             }
         ]
     }
