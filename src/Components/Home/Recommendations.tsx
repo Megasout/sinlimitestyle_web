@@ -74,7 +74,7 @@ function Recommendations(props: RecommendationsType) {
                 draggable={false}
                 responsive={responsive}
                 slidesToSlide={slideToSlide}
-                partialVisbile>
+                partialVisible>
                 {Array.from({ length: 8 }).map((_, index) =>
                     <div key={index} className={`item ${index == 7 ? 'final' : ''}`}></div>)}
             </Carousel>

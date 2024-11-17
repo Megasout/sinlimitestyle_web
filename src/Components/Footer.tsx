@@ -11,7 +11,7 @@ function Footer() {
                 <div className="block large">
                     <h1>Suscríbete para recibir ofertas y noticias</h1>
                     <form>
-                        <input type="email" placeholder="Email" />
+                        <input name="email" autoComplete="email" type="email" placeholder="Email" />
                         <input type="submit" value={'Suscribirse'} />
                     </form>
                     <p>Al suscribirse, usted confirma que ha leído y comprendido nuestra
@@ -75,26 +75,26 @@ function Buttons() {
                 title="Servicios"
                 height={71}
                 children={[
-                    <Link to={''}>Servicio 1</Link>,
-                    <Link to={''}>Servicio 2</Link>,
-                    <Link to={''}>Servicio 3</Link>
+                    <Link key={1} to={''}>Servicio 1</Link>,
+                    <Link key={2} to={''}>Servicio 2</Link>,
+                    <Link key={3} to={''}>Servicio 3</Link>
                 ]} />
             <CustomButton
                 title="Sin Límite"
                 height={97}
                 children={[
-                    <Link to={''}>Sobre nosotros</Link>,
-                    <Link to={''}>Preguntas frecuentes</Link>,
-                    <Link to={''}>Términos y condiciones de uso</Link>,
-                    <Link to={''}>Declaración de privacidad</Link>
+                    <Link key={4} to={''}>Sobre nosotros</Link>,
+                    <Link key={5} to={''}>Preguntas frecuentes</Link>,
+                    <Link key={6} to={''}>Términos y condiciones de uso</Link>,
+                    <Link key={7} to={''}>Declaración de privacidad</Link>
                 ]} />
             <CustomButton
                 title="Contacto"
                 height={75}
                 children={[
-                    <IconButton to="" icon="fa-brands fa-whatsapp" text="WhatsApp" />,
-                    <IconButton to="" icon="fa-regular fa-envelope" text="+598 98 912 284" />,
-                    <IconButton to="" icon="fa-solid fa-phone" text="correo@correo.com" />
+                    <IconButton key={8} to="" icon="fa-brands fa-whatsapp" text="WhatsApp" />,
+                    <IconButton key={9} to="" icon="fa-regular fa-envelope" text="+598 98 912 284" />,
+                    <IconButton key={10} to="" icon="fa-solid fa-phone" text="correo@correo.com" />
                 ]} />
         </div>
     )

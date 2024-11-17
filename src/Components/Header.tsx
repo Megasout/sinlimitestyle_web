@@ -1,12 +1,22 @@
-import { useEffect, useRef, useState } from "react"
-import { Link } from "react-router-dom"
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import throttle from "lodash.throttle"
 import MegaMenu from "./MegaMenu"
 import useWindowWidth from "../Hooks/useWindowWidth"
 import NavMenu from "./NavMenu"
 
+type HeaderType = {
+    black: boolean,
+    shop: boolean
+}
 
-function Header() {
+export interface HeaderRef {
+    hiddenNavMenu: () => void
+}
+
+const Header = forwardRef((props: HeaderType, ref) => {
+    const { black, shop } = props
+
     const [megaMenuVisibility, setMegaMenuVisibility] = useState(false)
     const [navMenuVisibility, setNavMenuVisibility] = useState(false)
     const [navMenuHidden, setNavMenuHidden] = useState(true)
@@ -14,6 +24,7 @@ function Header() {
     const [isOnTop, setIsOnTop] = useState<boolean>(true)
     const [menu, setMenu] = useState<number>(1)
     const width = useWindowWidth()
+    const navigation = useNavigate()
 
     useEffect(() => {
         setMegaMenuVisibility(false)
@@ -40,9 +51,11 @@ function Header() {
     useEffect(() => {
         if (!navMenuVisibility) {
             timeOutMenu.current = setTimeout(() => setNavMenuHidden(true), 400);
+            document.body.style.overflow = "auto"
         } else {
             clearTimeout(timeOutMenu.current)
             setNavMenuHidden(false)
+            document.body.style.overflow = "hidden"
         }
 
         return () => {
@@ -54,7 +67,11 @@ function Header() {
         setMegaMenuVisibility(false)
     }
 
-    const topMenuClassName = `top_menu ${isOnTop ? megaMenuVisibility || navMenuVisibility ? 'black' : '' : 'black'}`
+    useImperativeHandle(ref, () => ({
+        hiddenNavMenu: () => setNavMenuVisibility(false)
+    }))
+
+    const topMenuClassName = `top_menu ${black ? 'black' : isOnTop ? megaMenuVisibility || navMenuVisibility ? 'black' : '' : 'black'}`
 
     return (
         <div style={{ height: !navMenuHidden ? '100vh' : 'auto' }} onMouseLeave={handleMouseLeave} className="header">
@@ -66,14 +83,14 @@ function Header() {
                     <nav >
                         <NavButton
                             setMegaMenuVisibility={setMegaMenuVisibility}
-                            to=""
+                            to="./tienda?filtro=prendas"
                             line={menu == 1}
                             megaMenuVisibility={megaMenuVisibility}
                             name="Prendas"
                             setMenu={() => setMenu(1)} />
                         <NavButton
                             setMegaMenuVisibility={setMegaMenuVisibility}
-                            to=""
+                            to="./tienda?filtro=accesorios"
                             line={menu == 2}
                             megaMenuVisibility={megaMenuVisibility}
                             name="Accesorios"
@@ -87,16 +104,17 @@ function Header() {
                             setMenu={() => setMenu(3)} />
                     </nav>
                 }
-                <h1 onMouseEnter={handleMouseLeave} translate="no">Sin Límite</h1>
+                <h1 onClick={() => navigation('/')} onMouseEnter={handleMouseLeave} translate="no">Sin Límite</h1>
                 <div onMouseEnter={handleMouseLeave} className="user">
-                    <div className="button">
-                        <span
-                            style={{ fontSize: width < 500 ? "1.9rem" : "2.1rem", marginTop: "0.2rem" }}
-                            translate="no"
-                            className="material-symbols-outlined">
-                            search
-                        </span>
-                    </div>
+                    {!shop &&
+                        <div className="button">
+                            <span
+                                style={{ fontSize: width < 500 ? "1.9rem" : "2.1rem", marginTop: "0.2rem" }}
+                                translate="no"
+                                className="material-symbols-outlined">
+                                search
+                            </span>
+                        </div>}
                     {width >= 660 &&
                         <div className="button">
                             <span
@@ -125,7 +143,7 @@ function Header() {
                 setNavMenuVisibility={setNavMenuVisibility} />
         </div>
     )
-}
+})
 
 export default Header
 

@@ -75,7 +75,7 @@ function CustomCarousel(props: CustomCarouselType) {
                 draggable={false}
                 responsive={responsive}
                 slidesToSlide={slideToSlide}
-                partialVisbile>
+                partialVisible>
                 {Array.from({ length: 15 }).map((_, index) =>
                     <div key={index} className={`item ${index == 7 ? 'final' : ''}`}></div>)}
             </Carousel>

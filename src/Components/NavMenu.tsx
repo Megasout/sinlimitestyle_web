@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom"
+
 type NavMenuType = {
     className: string
     setNavMenuVisibility: (value: boolean) => void
@@ -15,18 +17,18 @@ function NavMenu(props: NavMenuType) {
                 close
             </span>
 
-            <NavButton icon="home" text="Pagina Principal"/>
+            <NavButton className={className} to="/" icon="home" text="Pagina Principal" />
             <div className="line"></div>
-            <NavButton icon="Apparel" text="Prendas"/>
-            <NavButton icon="category" text="Accesorios"/>
-            <NavButton icon="lists" text="Colecciones"/>
-            <NavButton icon="Sell" text="Ofertas"/>
+            <NavButton className={className} to="./tienda?filtro=prendas" icon="Apparel" text="Prendas" />
+            <NavButton className={className} to="./tienda?filtro=accesorios" icon="category" text="Accesorios" />
+            <NavButton className={className} to="" icon="lists" text="Colecciones" />
+            <NavButton className={className} to="" icon="Sell" text="Ofertas" />
             <div className="line"></div>
-            <div style={{height: "100%"}}></div>
+            <div style={{ height: "100%" }}></div>
             <div className="line"></div>
-            <NavButton icon="account_circle" text="Usuario"/>
-            <NavButton icon="info" text="Contacto"/>
-            <div style={{marginTop: "5rem"}}></div>
+            <NavButton className={className} to="" icon="account_circle" text="Usuario" />
+            <NavButton className={className} to="" icon="info" text="Contacto" />
+            <div style={{ marginTop: "5rem" }}></div>
         </div>
     )
 }
@@ -34,15 +36,23 @@ function NavMenu(props: NavMenuType) {
 export default NavMenu
 
 type NavButtonType = {
+    className: string,
     icon: string,
-    text: string
+    text: string,
+    to: string
 }
 
 function NavButton(props: NavButtonType) {
-    const {icon, text} = props
+    const { className, icon, text, to } = props
+    const navigation = useNavigate()
 
-    return (
-        <div className="button">
+    const handleOnClick = () => {
+        if (!className.includes('close'))
+            navigation(to)
+    }
+
+    return !className.includes('hidden') ? (
+        <div className="button" onClick={handleOnClick}>
             <span
                 style={{ userSelect: "none" }}
                 translate="no"
@@ -57,5 +67,5 @@ function NavButton(props: NavButtonType) {
                 chevron_right
             </span>
         </div>
-    )
+    ) : <></>
 }
