@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react"
+import { LegacyRef, useEffect, useRef, useState } from "react"
+import PrismaZoom from "react-prismazoom";
 
 type ImagesType = {
     images: any[],
@@ -80,21 +81,22 @@ function ProductImages({ images, width }: ImagesType) {
             select={select} />
     )
 
-    // const renderZoomSmallScreen = () => (
-    //     isZoomed && <ImageZoomSmallScreen
-    //         handleZoomLeave={handleZoomLeave}
-    //         images={images}
-    //         setSelect={setSelect}
-    //         select={select}
-    //         handleOnMouseEnter={handleOnMouseEnter}
-    //         handleOnMouseLeave={handleOnMouseLeave}
-    //         handleTouchEnd={handleTouchEnd}
-    //         handleTouchMove={handleTouchMove}
-    //         handleTouchStart={handleTouchStart}
-    //         mouseHover={mouseHover}
-    //         nextImage={nextImage}
-    //         prevImage={prevImage} />
-    // )
+    const renderZoomSmallScreen = () => (
+        isZoomed && <ImageZoomSmallScreen
+            handleZoomLeave={handleZoomLeave}
+            images={images}
+            setSelect={setSelect}
+            select={select}
+            handleOnMouseEnter={handleOnMouseEnter}
+            handleOnMouseLeave={handleOnMouseLeave}
+            handleTouchEnd={handleTouchEnd}
+            handleTouchMove={handleTouchMove}
+            handleTouchStart={handleTouchStart}
+            mouseHover={mouseHover}
+            nextImage={nextImage}
+            prevImage={prevImage}
+            imageStyle={imageStyle} />
+    )
 
     const renderImageSelectionBigScreen = () => (
         images.length > 1 &&
@@ -144,7 +146,7 @@ function ProductImages({ images, width }: ImagesType) {
     return (
         <div className='image_block'>
             {width >= 1025 && renderZoomBigScreen()}
-            {/* {width < 1025 && renderZoomSmallScreen()} */}
+            {width < 1025 && renderZoomSmallScreen()}
             {width >= 1025 && renderImageBigScreen()}
             {width < 1025 && renderImageSmallScreen()}
             {width >= 1025 || images.length <= 1 && renderImageSelectionBigScreen()}
@@ -167,7 +169,8 @@ type ImageZoomType = {
     handleTouchEnd?: undefined,
     mouseHover?: undefined,
     nextImage?: undefined,
-    prevImage?: undefined
+    prevImage?: undefined,
+    imageStyle?: undefined
 } | {
     handleZoomLeave: () => void,
     images: any[],
@@ -181,6 +184,7 @@ type ImageZoomType = {
     mouseHover: boolean,
     nextImage: () => void,
     prevImage: () => void
+    imageStyle: React.CSSProperties
 }
 
 function ImageZoom(props: ImageZoomType) {
@@ -247,89 +251,97 @@ function ImageZoom(props: ImageZoomType) {
     )
 }
 
-// function ImageZoomSmallScreen(props: ImageZoomType) {
-//     const { handleZoomLeave, images, select,
-//         handleOnMouseEnter, handleOnMouseLeave, handleTouchEnd,
-//         handleTouchMove, handleTouchStart, mouseHover, nextImage,
-//         prevImage
-//     } = props
+function ImageZoomSmallScreen(props: ImageZoomType) {
+    const { handleZoomLeave, images, select,
+        handleOnMouseEnter, handleOnMouseLeave, handleTouchEnd,
+        handleTouchMove, handleTouchStart, mouseHover, nextImage,
+        prevImage, imageStyle
+    } = props
 
-//     const [scale, setScale] = useState(1);
-//     const [initialDistance, setInitialDistance] = useState(0); // Distancia inicial entre los dedos
-//     const [isZooming, setIsZooming] = useState(false);
+    return (
+        <>
+            <div className="background">
+                <div className="menu">
+                    <button onClick={handleZoomLeave}>Atras</button>
+                    <p>{`${select + 1}/${images.length}`}</p>
+                </div>
+                <ImageSelectionSmallScreen className="zoom" images={images} select={select} />
+            </div>
+            <div
+                className='big_image'
+                onMouseEnter={handleOnMouseEnter}
+                onMouseLeave={handleOnMouseLeave}>
+                <div className="image-container" style={imageStyle}>
+                    {images.map((img, index) =>
+                        <ImageZoomContainer
+                            key={index}
+                            onTouchEnd={handleTouchEnd!}
+                            onTouchMove={handleTouchMove!}
+                            onTouchStart={handleTouchStart!}
+                            url={img.url} />
+                    )}
+                </div>
+                {mouseHover && images.length > 1 &&
+                    <NextBackButtons
+                        nextImage={nextImage}
+                        prevImage={prevImage} />}
+            </div>
+        </>
+    )
+}
 
-//     // Manejo de toque al inicio (detectar si se está haciendo zoom)
-//     const handleTouchStartWithZoom = (e: React.TouchEvent<HTMLDivElement>) => {
-//         if (e.touches.length === 2) {
-//             // Si hay dos dedos, detectamos el gesto de zoom
-//             e.preventDefault()
-//             const distance = getDistance(e.touches[0], e.touches[1]);
-//             setInitialDistance(distance);
-//             setIsZooming(true); // Indicar que estamos haciendo zoom
-//         } else if (e.touches.length === 1) {
-//             // Si solo hay un dedo, seguimos con el control de navegación
-//             setIsZooming(false); // No estamos haciendo zoom, es navegación
-//             handleTouchStart && handleTouchStart(e);
-//         }
-//     };
+type ImageZoomContainerType = {
+    onTouchStart: (e: React.TouchEvent<HTMLDivElement>) => void,
+    onTouchMove: (e: React.TouchEvent<HTMLDivElement>) => void,
+    onTouchEnd: () => void,
+    url: string
+}
 
-//     // Manejo de movimiento del toque (actualización del zoom o desplazamiento)
-//     const handleTouchMoveWithZoom = (e: React.TouchEvent<HTMLDivElement>) => {
-//         if (isZooming && e.touches.length === 2) {
-//             e.preventDefault()
+interface PrismaZoomHandle {
+    zoomIn: (value: number) => void;
+    zoomOut: (value: number) => void;
+    zoomToZone: (relX: number, relY: number, relWidth: number, relHeight: number) => void;
+    reset: () => void;
+    getZoom: () => number;
+    move: (shiftX: number, shiftY: number, transitionDuration?: number | undefined) => void;
+}
 
-//             const currentDistance = getDistance(e.touches[0], e.touches[1]);
-//             const zoomFactor = currentDistance / initialDistance;
-//             setScale(Math.max(1, Math.min(zoomFactor, 3))); // Limitar el zoom entre 1x y 3x
-//         } else if (!isZooming && e.touches.length === 1) {
-//             // Manejo de desplazamiento para navegar entre las imágenes
-//             handleTouchMove && handleTouchMove(e);
-//         }
-//     };
+function ImageZoomContainer(props: ImageZoomContainerType) {
+    const { onTouchEnd, onTouchMove, onTouchStart, url } = props
 
-//     // Manejo del fin del toque (navegar entre imágenes si es necesario)
-//     const handleTouchEndWithZoom = () => {
-//         setIsZooming(false);
-//         handleTouchEnd && handleTouchEnd();
-//     };
+    const zoomRef = useRef<PrismaZoomHandle>(null)
 
-//     // Estilo de la imagen con el zoom aplicado
-//     const imageStyle = {
-//         transform: `translateX(-${select * 100}%)`, // scale(${scale})`, // Aplica el zoom con el scale
-//         transition: 'transform 0.4s ease-in-out', // Transición suave
-//     };
+    const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+        if (!zoomRef.current) return
+        if (zoomRef.current.getZoom() == 1)
+            onTouchStart(e)
+    }
+    const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+        if (!zoomRef.current) return
+        if (zoomRef.current.getZoom() == 1)
+            onTouchMove(e)
+    }
+    const handleTouchEnd = () => {
+        if (!zoomRef.current) return
+        if (zoomRef.current.getZoom() == 1)
+            onTouchEnd()
+    }
 
-//     return (
-//         <>
-//             <div className="background">
-//                 <div className="menu">
-//                     <button onClick={handleZoomLeave}>Atras</button>
-//                     <p>{`${select}/${images.length}`}</p>
-//                 </div>
-//                 <ImageSelectionSmallScreen className="zoom" images={images} select={select} />
-//             </div>
-//             <div
-//                 className='big_image'
-//                 onMouseEnter={handleOnMouseEnter}
-//                 onMouseLeave={handleOnMouseLeave}>
-//                 <div className="image-container" style={imageStyle}>
-//                     {images.map((img, index) =>
-//                         <div
-//                             key={index}
-//                             onTouchStart={handleTouchStartWithZoom}
-//                             onTouchMove={handleTouchMoveWithZoom}
-//                             onTouchEnd={handleTouchEndWithZoom}
-//                             className="image-slide"
-//                             style={getImage(img.url)}></div>)}
-//                 </div>
-//                 {mouseHover && images.length > 1 &&
-//                     <NextBackButtons
-//                         nextImage={nextImage}
-//                         prevImage={prevImage} />}
-//             </div>
-//         </>
-//     )
-// }
+    return (
+        <div className="zoom_container">
+            <PrismaZoom
+                ref={zoomRef}
+                className="image_slide_zoom"
+                allowTouchEvents>
+                <div
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
+                    style={getImage(url)}></div>
+            </PrismaZoom>
+        </div>
+    )
+}
 
 type NextBackButtonsType = {
     nextImage: () => void,
@@ -340,20 +352,20 @@ function NextBackButtons(props: NextBackButtonsType) {
     const { nextImage, prevImage } = props
 
     return (
-        <div className={`nav`}>
+        <>
             <span
                 onClick={prevImage}
                 translate="no"
-                className="inverse material-symbols-outlined">
+                className="nav l inverse material-symbols-outlined">
                 arrow_forward_ios
             </span>
             <span
                 onClick={nextImage}
                 translate="no"
-                className="material-symbols-outlined">
+                className="nav r material-symbols-outlined">
                 arrow_forward_ios
             </span>
-        </div>
+        </>
     )
 }
 

@@ -66,42 +66,29 @@
     }
 }
 
-.product .top .image_block .nav {
-    position: absolute;
-    right: 0;
-    left: 0;
-    top: 50%;
-    transform: translate(0, -50%);
+.product .top .image_block .background .menu{
     display: flex;
     justify-content: space-between;
-
-    @media (min-width: 1025px) {
-        position: fixed;
-        z-index: 12000;
-    }
+    padding: 1rem;
 }
 
-.product .top .image_block .nav span {
-    font-size: 3rem;
-    margin: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 4rem;
-    width: 4rem;
-    background-color: #000000ae;
-    border-radius: 50px;
-    color: #bfbfbf;
-    ;
-    user-select: none;
+.product .top .image_block .background .menu p{
+    color: white;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.product .top .image_block .background .menu button{
+    border: none;
+    border-radius: 5px;
+    padding: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     cursor: pointer;
+    transition: background-color 0.4s ease;
 
-    &:hover {
-        color: white;
-    }
-
-    &.inverse {
-        transform: rotate(180deg);
+    &:hover{
+        background-color: #dfdede;
     }
 }
 
@@ -123,6 +110,42 @@
 
     &:hover {
         color: white;
+    }
+}
+
+.product .top .image_block .nav {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+
+    font-size: 3rem;
+    margin: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4rem;
+    width: 4rem;
+    background-color: #000000ae;
+    border-radius: 50px;
+    color: #bfbfbf;
+
+    user-select: none;
+    cursor: pointer;
+
+    &:hover {
+        color: white;
+    }
+
+    &.inverse{
+        transform: translate(0, -50%) rotate(180deg);
+    }
+
+    &.r{
+        right: 0;
+    }
+
+    &.l{
+        left: 0;
     }
 }
 
@@ -179,11 +202,32 @@
     height: 100%;
 }
 
+.product .top .image-container .zoom_container{
+    display: flex;
+    width: 100%;
+    flex: 0 0 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
 .product .top .image-slide {
     flex: 0 0 100%;
-    /* Cada imagen ocupa todo el ancho del contenedor */
     height: 100%;
-    /* Mantener el alto igual que el contenedor */
+    background-color: #dfdede;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.product .top .image_slide_zoom {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.product .top .image_slide_zoom div {
+    height: 100%;
+    width: 100%;
     background-color: #dfdede;
     background-size: contain;
     background-repeat: no-repeat;
@@ -195,7 +239,7 @@
     justify-content: center;
     gap: 0.3rem;
 
-    &.zoom{
+    &.zoom {
         padding-bottom: 1.5rem;
     }
 }
