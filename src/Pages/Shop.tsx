@@ -39,7 +39,7 @@ export async function loader({ request }: any) {
     }
 
     const [productos, miniaturas, categories] = await Promise.all([
-        getFromTable(`/get/${filtro}s`),
+        getFromTableQuery(`/get/${filtro}s`, 'activo', [1]),
         getFromTable(`/get/miniaturas/${filtro}s`),
         getFromTable(`/get/categorias/bytype/${filtro}`)])
 

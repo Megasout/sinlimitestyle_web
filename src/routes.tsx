@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "./Pages/Home";
 import Layout from "./Components/Layout";
 import Shop, { loader as shopData } from "./Pages/Shop";
-import Product from "./Pages/Product";
+import Product, {loader as productData} from "./Pages/Product";
 
 const router = createBrowserRouter([
     {
@@ -20,7 +20,8 @@ const router = createBrowserRouter([
             },
             {
                 path: 'tienda/:ID/producto',
-                element: <Product />
+                element: <Product />,
+                loader: productData
             }
         ]
     }
