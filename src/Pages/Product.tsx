@@ -131,7 +131,7 @@ function Product() {
 
     const renderBuyFormBigScreen = () => (
         <div className='buy'>
-            <h3>$500</h3>
+            {renderPrice(producto.precio, producto.descuento)}
             <form>
                 <label>Cantidad</label>
                 <select>
@@ -144,8 +144,9 @@ function Product() {
             </form>
             <div className='contact'>
                 <p>¿Tienes alguna consulta?</p>
-                <i className='fa-brands fa-whatsapp'><span> Whatsapp</span></i>
-                <i className='fa-regular fa-envelope'><span> Email</span></i>
+                <a href={getWhatsAppLink(producto.id)}>
+                    <i style={{ color: "green" }} className='fa-brands fa-whatsapp'><span> Whatsapp</span></i>
+                </a>
             </div>
         </div>
     )
@@ -155,13 +156,13 @@ function Product() {
             <div className='top'>
                 {width < 1025 &&
                     <div className='title'>
-                        <h2>{formatProductType(producto.tipo_producto)}</h2>
+                        <h2 className='red'>{formatProductType(producto.tipo_producto)}</h2>
                         <h1>{producto.nombre}</h1>
                     </div>}
                 <ProductImages width={width} images={producto.imagenes} />
                 {width < 1025 && renderBuyFormSmallScreen()}
                 <div className='info'>
-                    {width >= 1025 && <h2>{formatProductType(producto.tipo_producto)}</h2>}
+                    {width >= 1025 && <h2 className='red'>{formatProductType(producto.tipo_producto)}</h2>}
                     {width >= 1025 && <h1>{producto.nombre}</h1>}
                     {width >= 1025 &&
                         <>
@@ -212,7 +213,7 @@ function getRealPrice(price: number, off: number): string {
     return '$' + (price - (price * off / 100))
 }
 
-function getWhatsAppLink(id: number): string{
+function getWhatsAppLink(id: number): string {
     const phon = 59898912284
     const text = 'Deseo consultar sobre el Producto: '
     const productLink = `https://www.SinLimiteStyle.shop/tienda/${id}/producto`

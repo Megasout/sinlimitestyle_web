@@ -53,13 +53,10 @@
     top: 0;
     bottom: 0;
     z-index: 11999;
-    background-color: rgba(0, 0, 0, 0.976);
-
-    @media (max-width: 1024px) {
-        display: flex;
-        justify-content: space-between;
-        flex-direction: column;
-    }
+    background-color: #000000f9;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 
     @media (min-width: 1025px) {
         background-color: #000000ae;
@@ -70,12 +67,30 @@
     display: flex;
     justify-content: space-between;
     padding: 1rem;
+    
+    @media (min-width: 1025px) {
+        background-color: #131313;
+    }
 }
 
 .product .top .image_block .background .menu p{
     color: white;
     font-size: 1rem;
     margin: 0;
+    align-self: center;
+}
+
+.product .top .image_block .background .menu .options{
+    display: flex;
+    gap: 1rem;
+}
+
+.product .top .image_block .background .menu .options span{
+    color: white;
+    font-size: 2rem;
+    font-weight: 300;
+    cursor: pointer;
+    user-select: none;
 }
 
 .product .top .image_block .background .menu button{
@@ -111,6 +126,18 @@
     &:hover {
         color: white;
     }
+}
+
+.product .top .image_block .background .zoom_buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row-reverse;
+    background-color: #131313;
+}
+
+.product .top .image_block .background .zoom_buttons span{
+    color: white;
 }
 
 .product .top .image_block .nav {
@@ -164,6 +191,7 @@
     @media (min-width: 1025px) {
         width: 50vw;
         height: 85vh;
+        overflow: hidden;
     }
 }
 
@@ -186,11 +214,11 @@
     }
 
     @media (min-width: 1025px) {
-        width: 32.847vw;
-        height: 40.146vw;
+        width: 30vw;
+        height: 36.667vw;
     }
 
-    @media (min-width: 1370px) {
+    @media (min-width: 1500px) {
         width: 450px;
         height: 550px;
     }
@@ -311,6 +339,10 @@
     border-bottom: 1px solid #c2c2c2;
 }
 
+.product .top .red{
+    color: crimson;
+}
+
 .product .top h1 {
     margin: 0;
     font-weight: 500;
@@ -388,6 +420,19 @@
     gap: 1rem;
     justify-content: space-between;
     padding: 1rem;
+    flex-direction: column;
+
+    @media (min-width: 440px) {
+        flex-direction: row;
+    }
+
+    @media (min-width: 1025px) {
+        flex-direction: column;
+    }
+
+    @media (min-width: 1330px) {
+        flex-direction: row;
+    }
 }
 
 .product .top .buy .contact a {
