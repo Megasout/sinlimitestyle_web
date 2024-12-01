@@ -62,6 +62,7 @@ function ShopContent(props: ShopContentType) {
                     numberOfProducts * (page)).map(producto =>
                         <Producto
                             key={producto.id}
+                            id={producto.id}
                             nombre={producto.nombre}
                             precio={producto.precio}
                             nombreCategoria={producto.id_categoria != null ?
@@ -211,6 +212,7 @@ function Ellipsis(props: EllipsisType) {
 }
 
 type ProductoType = {
+    id: number,
     nombre: string,
     miniatura: React.CSSProperties | null,
     descuento: number,
@@ -219,10 +221,12 @@ type ProductoType = {
 }
 
 function Producto(props: ProductoType) {
-    const { descuento, miniatura, nombre, nombreCategoria, precio } = props
+    const { descuento, miniatura, nombre, nombreCategoria, precio, id } = props
+
+    const navigator = useNavigate()
 
     return (
-        <div className="block">
+        <div onClick={() => navigator(`/tienda/${id}/producto`)} className="block">
             {miniatura ?
                 <div className="image" style={miniatura}></div>
                 : <div className="image" style={{ backgroundColor: "#bdbdbd" }}>
